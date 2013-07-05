@@ -1,0 +1,40 @@
+<div data-navbar data-selected="home"></div>
+
+<div class="row">
+	<div class="span9"></div>
+	<div class="span3">
+		<form id="searchForm" data-ng-submit="search(query)">
+		<div class="control-group">
+			<div class="controls">
+				<div class="input-append">
+					<input type="text" id="searchInput" placeholder="Search Books" data-ng-model="query" />
+					<span class="add-on" data-ng-click="searchIcon()">
+						<i class="icon-search" data-ng-show="!showClear"></i>
+						<i class="icon-remove-sign" data-ng-show="showClear"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<table class="table table-hover books">
+			<thead>
+				<tr>
+					<th class="title">Title</th>
+					<th class="author">Author</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="book in books" class="book-row"
+					data-ng-click="select(book.id)">
+					<td class="title">{{book.title}}</td>
+					<td class="author">{{book.author}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+

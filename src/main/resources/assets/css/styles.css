@@ -1,0 +1,12 @@
+body { padding-top: 60px; }
+
+/* books.html */
+tr.book-row:hover { cursor: pointer; }
+table.books th.title, td.title { width: 60%; }
+table.books th.author, td.author { width: 40%; }
+
+/* book-detail.hmtl */
+#bookDetailForm input#inputTitle { width: 375px; }
+#bookDetailForm input#inputAuthor { width: 375px; }
+#bookDetailForm textarea#inputDescription { width: 375px; }
+

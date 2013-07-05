@@ -1,0 +1,31 @@
+<div data-navbar data-selected="create-book"></div>
+
+<form id="bookDetailForm" class="form-horizontal" name="bookDetailForm">
+  <input type="hidden" data-ng-model="book.id"/>
+  <div class="control-group">
+    <label class="control-label" for="inputTitle">Title</label>
+    <div class="controls">
+      <input type="text" id="inputTitle" data-ng-model="book.title" required>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputAuthor">Author</label>
+    <div class="controls">
+      <input type="text" id="inputAuthor" data-ng-model="book.author" required>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputDescription">Description</label>
+    <div class="controls">
+      <textarea rows="3" id="inputDescription" data-ng-model="book.description"></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="button" class="btn btn-success" data-ng-click="save(book)" data-ng-disabled="bookDetailForm.$invalid">Save</button>
+      <button type="button" class="btn btn-danger" data-ng-click="remove(book.id)" data-ng-show="book.id">Delete</button>
+      <button type="button" class="btn" data-ng-click="cancel()">Cancel</button>
+    </div>
+  </div>  
+</form>
+

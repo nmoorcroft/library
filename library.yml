@@ -1,0 +1,22 @@
+http:
+  rootPath: /api/*  # Default is /*
+  
+logging:
+  level: INFO
+  loggers:
+    "com.zuhlke.library": DEBUG
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: root
+  password: root
+  url: jdbc:mysql://localhost/library
+  maxWaitForConnection: 1s
+  validationQuery: "/* LibraryService Health Check */ SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  checkConnectionHealthWhenIdleFor: 10s
+  closeConnectionIfIdleFor: 1 minute
+
+  
