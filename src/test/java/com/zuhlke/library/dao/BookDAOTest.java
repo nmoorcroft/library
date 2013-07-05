@@ -3,14 +3,14 @@ package com.zuhlke.library.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.junit.Assert;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,9 +21,11 @@ public class BookDAOTest {
     private static SessionFactory sessionFactory;
     
     @BeforeClass
-    @SuppressWarnings("deprecation")
     public static void setUp() {
-        sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        Configuration cfg = new Configuration().configure();
+        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(cfg.getProperties()).buildServiceRegistry();
+        sessionFactory = cfg.buildSessionFactory(serviceRegistry);
+        
     }
     
     @Test
