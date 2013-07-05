@@ -29,5 +29,11 @@
     </createTable>
   </changeSet>
   
+  <changeSet id="2" author="nmo">
+    <addColumn tableName="books">
+      <column name="artwork" type="varchar(500)" />
+    </addColumn>
+  </changeSet>
+    
 </databaseChangeLog>
 

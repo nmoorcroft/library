@@ -39,7 +39,6 @@ public class BookResource {
 	@GET 
 	@UnitOfWork
 	@CacheControl(noCache = true, mustRevalidate = true)
-	@Produces(MediaType.APPLICATION_JSON)
 	public List<Book> getBooks(@QueryParam("q") String query) {
 	    if (isNullOrEmpty(query)) {
 	        return dao.findAll();
@@ -51,13 +50,12 @@ public class BookResource {
 	@GET @Path("/{id}") 
 	@UnitOfWork
     @CacheControl(noCache = true, mustRevalidate = true)
-	@Produces(MediaType.APPLICATION_JSON)
     public Book getBook(@PathParam("id") Long id) {
         Book book = dao.findById(id);
         if (book != null) return book;
         throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
-
+	
     @POST 
     @UnitOfWork 
     @Consumes(MediaType.APPLICATION_JSON)

@@ -21,6 +21,13 @@
     </div>
   </div>
   <div class="control-group">
+    <label class="control-label" for="inputArtwork">Artwork</label>
+    <div class="controls" id="artworkControls">
+      <input type="file" id="inputArtwork" data-url="api/artwork/upload" />
+      <img id="artworkImg" src="" />
+    </div>
+  </div>
+  <div class="control-group">
     <div class="controls">
       <button type="button" class="btn btn-success" data-ng-click="save(book)" data-ng-disabled="bookDetailForm.$invalid">Save</button>
       <button type="button" class="btn btn-danger" data-ng-click="remove(book.id)" data-ng-show="book.id">Delete</button>

@@ -39,6 +39,11 @@ public class Book implements Serializable {
 	@Column(name = "author")
 	private String author;
 	
+    @Basic(optional = true) 
+    @Length(max = 255)
+    @Column(name = "artwork")
+	private String artwork;
+	
 	Book() { }
 	
 	public Book(String title, String author) {
@@ -78,9 +83,17 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 	
+	public String getArtwork() {
+        return artwork;
+    }
+	
+	public void setArtwork(String artwork) {
+        this.artwork = artwork;
+    }
+	
 	@Override
 	public String toString() {
-		return String.format("id: %s; title: %s; description: %s", getId(), getTitle(), getDescription());
+		return String.format("id: %s; title: %s; description: %s; artwork: %s", getId(), getTitle(), getDescription(), getArtwork());
 	}
 	
 

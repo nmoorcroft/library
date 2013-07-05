@@ -7,6 +7,7 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 import com.yammer.dropwizard.migrations.MigrationsBundle;
+import com.zuhlke.library.api.ArtworkResource;
 import com.zuhlke.library.api.BookResource;
 import com.zuhlke.library.core.Book;
 import com.zuhlke.library.dao.BookDAO;
@@ -40,6 +41,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
     @Override
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new BookResource(new BookDAO(hibernate.getSessionFactory())));
+        environment.addResource(new ArtworkResource());
     }
     
 }
