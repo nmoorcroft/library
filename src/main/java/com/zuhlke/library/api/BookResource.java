@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
-import com.yammer.metrics.annotation.Timed;
+import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.core.Book;
 import com.zuhlke.library.dao.BookDAO;
 
@@ -36,7 +36,9 @@ public class BookResource {
 	    this.dao = dao;
     }
 	
-	@GET @UnitOfWork @Timed 
+	@GET 
+	@UnitOfWork
+	@CacheControl(noCache = true, mustRevalidate = true)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Book> getBooks(@QueryParam("q") String query) {
 	    if (isNullOrEmpty(query)) {
@@ -46,7 +48,9 @@ public class BookResource {
 	    }
 	}
 	
-	@GET @Path("/{id}") @UnitOfWork @Timed 
+	@GET @Path("/{id}") 
+	@UnitOfWork
+    @CacheControl(noCache = true, mustRevalidate = true)
 	@Produces(MediaType.APPLICATION_JSON)
     public Book getBook(@PathParam("id") Long id) {
         Book book = dao.findById(id);
@@ -54,13 +58,15 @@ public class BookResource {
         throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
 
-    @POST @UnitOfWork @Timed 
+    @POST 
+    @UnitOfWork 
     @Consumes(MediaType.APPLICATION_JSON)
     public void saveBook(Book book) {
         dao.save(book);
     }
 
-    @DELETE @Path("/{id}") @UnitOfWork @Timed
+    @DELETE @Path("/{id}") 
+    @UnitOfWork
     public void deleteBook(@PathParam("id") Long id) {
         dao.delete(id);
     }
