@@ -12,12 +12,17 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.zuhlke.library.core.Book;
+import com.zuhlke.library.core.BookBuilder;
 import com.zuhlke.library.dao.BookDAO;
 
 public class BookResourceTest {
 
-    final List<Book> books = Arrays.asList(new Book("book 1"), new Book("book 2"), new Book("book 3"));
-    final Book book = new Book("book title");
+    final List<Book> books = Arrays.asList(
+        new BookBuilder().id(1L).title("book1").build(),
+        new BookBuilder().id(2L).title("book2").build(),
+        new BookBuilder().id(3L).title("book3").build()
+    );
+    final Book book = new BookBuilder().id(1L).title("book title").build();
     final BookDAO mockDao = Mockito.mock(BookDAO.class);
     
     @Test

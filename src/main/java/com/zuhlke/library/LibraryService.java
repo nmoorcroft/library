@@ -40,7 +40,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
     @Override
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new BookResource(new BookDAO(hibernate.getSessionFactory())));
-
     }
     
 }
+

@@ -11,12 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity @Table(name = "books")
 public class Book implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5541659969794633170L;
 
 	@Id 
@@ -25,28 +24,26 @@ public class Book implements Serializable {
 	@Column(name = "book_id")
 	private Long id;
 	
-	@Basic(optional = false) 
+	@Basic(optional = false)
+	@Length(max = 500)
 	@Column(name = "title")
 	private String title;
 	
 	@Basic(optional = true) 
+	@Length(max = 2000)
 	@Column(name = "description")
 	private String description;
 
 	@Basic(optional = false) 
+	@Length(max = 255)
 	@Column(name = "author")
 	private String author;
 	
 	Book() { }
 	
-	public Book(String title, String author, String description) {
+	public Book(String title, String author) {
 		this.title = title;
 		this.author = author;
-		this.description = description;
-	}
-	
-	public Book(String title) {
-		this.title = title;
 	}
 
 	public Long getId() {
