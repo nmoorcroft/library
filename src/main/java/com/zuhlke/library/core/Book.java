@@ -29,7 +29,7 @@ public class Book implements Serializable {
 	@Column(name = "title")
 	private String title;
 	
-	@Basic(optional = false) 
+	@Basic(optional = true) 
 	@Column(name = "description")
 	private String description;
 
@@ -52,6 +52,10 @@ public class Book implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	
+	protected void setId(Long id) {
+        this.id = id;
+    }
 
 	public String getTitle() {
 		return title;
@@ -79,7 +83,7 @@ public class Book implements Serializable {
 	
 	@Override
 	public String toString() {
-		return String.format("book id: %s, title: %s, description: %s", getId(), getTitle(), getDescription());
+		return String.format("id: %s; title: %s; description: %s", getId(), getTitle(), getDescription());
 	}
 	
 
