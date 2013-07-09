@@ -8,6 +8,7 @@ table.books th.author, td.author { width: 40%; }
 /* book-detail.hmtl */
 #bookDetailForm input#inputTitle { width: 375px; }
 #bookDetailForm input#inputAuthor { width: 375px; }
-#bookDetailForm textarea#inputDescription { width: 375px; }
-#bookDetailForm #artworkImg { width: 120px; padding-top: 10px; display: block; }
+#bookDetailForm textarea#inputDescription { width: 450px; }
+#bookDetailForm #artworkImg { width: 120px; margin-top: 10px; border: 1px ridge; display: block; }
+
 
