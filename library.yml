@@ -7,10 +7,10 @@ logging:
     "com.zuhlke.library": DEBUG
 
 database:
-  driverClass: com.mysql.jdbc.Driver
-  user: root
-  password: root
-  url: jdbc:mysql://localhost/library
+  driverClass: org.h2.Driver
+  user: sa
+  password:
+  url: jdbc:h2:tmp/library
   maxWaitForConnection: 1s
   validationQuery: "/* LibraryService Health Check */ SELECT 1"
   minSize: 8

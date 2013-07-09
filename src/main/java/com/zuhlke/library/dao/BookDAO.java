@@ -1,14 +1,13 @@
 package com.zuhlke.library.dao;
 
-import java.util.List;
-
+import com.yammer.dropwizard.hibernate.AbstractDAO;
+import com.zuhlke.library.core.Book;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.yammer.dropwizard.hibernate.AbstractDAO;
-import com.zuhlke.library.core.Book;
+import java.util.List;
 
 public class BookDAO extends AbstractDAO<Book> {
 

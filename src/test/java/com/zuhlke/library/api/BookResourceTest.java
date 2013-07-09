@@ -1,19 +1,18 @@
 package com.zuhlke.library.api;
 
-import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
-
+import com.zuhlke.library.core.Book;
+import com.zuhlke.library.core.BookBuilder;
+import com.zuhlke.library.dao.BookDAO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.zuhlke.library.core.Book;
-import com.zuhlke.library.core.BookBuilder;
-import com.zuhlke.library.dao.BookDAO;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BookResourceTest {
 

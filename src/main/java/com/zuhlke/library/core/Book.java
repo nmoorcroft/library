@@ -1,17 +1,9 @@
 package com.zuhlke.library.core;
 
-import java.io.Serializable;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-
 import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity @Table(name = "books")
 public class Book implements Serializable {
