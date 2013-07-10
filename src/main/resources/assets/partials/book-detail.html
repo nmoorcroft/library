@@ -24,7 +24,7 @@
     <label class="control-label" for="inputArtwork">Artwork</label>
     <div class="controls" id="artworkControls">
       <input type="file" id="inputArtwork" data-url="api/artwork/upload" />
-      <img id="artworkImg" src="" />
+      <img id="artworkImg" data-ng-src="{{artworkSrc()}}" data-ng-show="book.artwork" />
     </div>
   </div>
   <div class="control-group">

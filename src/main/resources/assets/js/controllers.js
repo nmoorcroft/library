@@ -1,12 +1,12 @@
 function LoginCtrl($scope, $http, $location, userService, loginService) {
 	$scope.login = function(user) {
 		loginService.setHeaders(user.username, user.password);
-		$http.get("api/authenticate").success(function(data) {
+		$http.get('api/authenticate').success(function(data) {
 			userService.currentUser = data;
-			$location.path("/books");
+			$location.path('/books');
 
 		}).error(function(data) {
-			$scope.error = "Invalid username or password.";
+			$scope.error = 'Invalid username or password.';
 			user.password = undefined;
 		});
 	};
@@ -39,26 +39,31 @@ function BookListCtrl($scope, $location, bookService) {
 	};
 
 	$scope.select = function(id) {
-		$location.path("/books/" + id);
+		$location.path('/books/' + id);
 	};
 
 }
 
 function BookDetailCtrl($scope, $routeParams, $location, bookService) {
 	var id = $routeParams.bookId;
-	if (!_.isUndefined(id)) {
+	if (_.isUndefined(id)) {
+		$scope.book = {};
+	} else {
 		$scope.book = bookService.get({
 			bookId : id
-		}, function() {
-			if (!_.isUndefined($scope.book.artwork)) {
-				$('#artworkImg').attr('src', 'api/artwork/'+$scope.book.artwork);
-			}
 		});
+	}
+	
+	$scope.artworkSrc = function() {
+		if (!_.isUndefined($scope.book.artwork)) {
+			return 'api/artwork/' + $scope.book.artwork;
+		}
+		return '';
 	}
 	
 	$scope.save = function(book) {
 		bookService.save(book, function() {
-			$location.path("/books");
+			$location.path('/books');
 		});
 	};
 
@@ -66,20 +71,21 @@ function BookDetailCtrl($scope, $routeParams, $location, bookService) {
 		bookService.remove({
 			bookId : id
 		}, function() {
-			$location.path("/books");
+			$location.path('/books');
 		});
 	};
 
 	$scope.cancel = function() {
-		$location.path("/books");
+		$location.path('/books');
 	};
 
 	$('#inputArtwork').bootstrapFileInput();
 	$('#inputArtwork').fileupload({
 		dataType : 'text',
 		done : function(e, data) {
-			$('#artworkImg').attr('src', 'api/artwork/'+data.result);
-			$scope.book.artwork = data.result;
+			$scope.$apply(function() {
+				$scope.book.artwork = data.result;
+			});
 		}
 	});
 	
