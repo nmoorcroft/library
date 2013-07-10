@@ -43,6 +43,6 @@ public class LibraryService extends Service<LibraryConfiguration> {
         environment.addResource(new BookResource(new BookDAO(hibernate.getSessionFactory())));
         environment.addResource(new ArtworkResource());
     }
-    
+
 }
 

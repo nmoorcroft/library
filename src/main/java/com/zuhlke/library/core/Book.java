@@ -1,11 +1,22 @@
 package com.zuhlke.library.core;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Length;
+
 @Entity @Table(name = "books")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 5541659969794633170L;

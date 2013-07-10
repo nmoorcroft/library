@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="java.io.tmpdir" />
+    <defaultCache eternal="false" timeToIdleSeconds="1200" timeToLiveSeconds="1200" />
+    <cache name="com.zuhlke.library.core.Book" maxElementsInMemory="200" eternal="false" overflowToDisk="false" timeToIdleSeconds="1200" timeToLiveSeconds="3600" />
+
+</ehcache>

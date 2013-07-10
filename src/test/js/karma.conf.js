@@ -13,10 +13,17 @@ files = [
   'src/test/js/lib/mocks.js',
   'src/test/js/lib/karma.js',
   'src/main/resources/assets/js/lib/jquery-*.js',
+  'src/main/resources/assets/js/lib/jquery.ui.widget.js',
+  'src/main/resources/assets/js/lib/jquery.iframe-transport.js',
+  'src/main/resources/assets/js/lib/jquery.fileupload.js',
+  'src/main/resources/assets/js/lib/jquery-*.js',
+  'src/main/resources/assets/js/lib/jquery-*.js',
   'src/main/resources/assets/js/lib/angular.js',
   'src/main/resources/assets/js/lib/angular-*.js',
   'src/main/resources/assets/js/lib/underscore-min.js',
   'src/main/resources/assets/js/lib/base64.js',
+  'src/main/resources/assets/js/lib/bootstrap.min.js',
+  'src/main/resources/assets/js/lib/bootstrap.file-input.js',
   'src/main/resources/assets/js/controllers.js',
   'src/main/resources/assets/js/services.js',
   'src/test/js/lib/angular-mocks.js',
@@ -75,7 +82,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 
 // If browser does not capture in given timeout [ms], kill it

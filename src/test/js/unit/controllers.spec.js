@@ -248,6 +248,29 @@ describe("Controller Tests", function() {
 			$httpBackend.verifyNoOutstandingRequest();
 		});
 
+		it('should configure fileupload control', function() {
+            var bootstrapFileInput = spyOn($.fn, 'bootstrapFileInput');
+            var uploadParams;
+            var fileupload = spyOn($.fn, 'fileupload').andCallFake(function(params) {
+               uploadParams = params;
+            });
+
+			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
+
+            $httpBackend.flush();
+
+            expect(bootstrapFileInput.mostRecentCall.object.selector).toEqual('#inputArtwork');
+            expect(bootstrapFileInput).toHaveBeenCalled();
+
+            expect(fileupload).toHaveBeenCalled();
+
+            // also test the callback
+            uploadParams.done('', { result : 'xxx'});
+            expect($scope.book.artwork).toEqual('xxx');
+
+
+		});
+
 		it('should load a book by id', inject(function($location) {
 
 			$httpBackend.expectGET('api/books/1').respond({});
