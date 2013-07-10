@@ -9,6 +9,6 @@ table.books th.author, td.author { width: 40%; }
 #bookDetailForm input#inputTitle { width: 375px; }
 #bookDetailForm input#inputAuthor { width: 375px; }
 #bookDetailForm textarea#inputDescription { width: 450px; }
-#bookDetailForm #artworkImg { width: 120px; margin-top: 10px; border: 1px ridge; display: block; }
+#bookDetailForm img { width: 120px; margin-top: 10px; border: 1px solid #ccc; display: block; }
 
 

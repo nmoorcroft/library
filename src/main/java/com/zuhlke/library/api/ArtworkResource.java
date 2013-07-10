@@ -2,6 +2,7 @@ package com.zuhlke.library.api;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
+import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.helpers.ArtworkHelper;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class ArtworkResource {
     final Logger logger = LoggerFactory.getLogger(ArtworkResource.class);
 
     @GET @Path("/{filename}") @Produces("image/jpg")
+    @CacheControl(immutable = true)
     public Response getArtwork(@PathParam("filename") String filename) {
         try {
             return Response.ok(ArtworkHelper.loadArtwork(filename)).build();
