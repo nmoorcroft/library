@@ -42,7 +42,7 @@ public class BookResourceTest {
     @Test
     public void shouldGetBooksByQuery() throws Exception {
         // arrange
-        when(mockDao.findByTitle("title")).thenReturn(books);
+        when(mockDao.findByTitleOrAuthor("title")).thenReturn(books);
         BookResource resource = new BookResource(mockDao);
         
         // act 

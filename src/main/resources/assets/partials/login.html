@@ -1,4 +1,4 @@
-<form novalidate class="form-horizontal" name="login-form" data-ng-submit="login(user)">
+<form novalidate class="form-horizontal" id="login-form" name="loginForm" data-ng-submit="login(user)">
   <div class="control-group">
     <label class="control-label" for="input-username">Username</label>
     <div class="controls">
@@ -14,6 +14,7 @@
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn" data-ng-disabled="loginForm.$invalid">Login</button>
+      <button type="button" class="btn" data-ng-click="cancel()">Cancel</button>
     </div>
   </div>
   <div class="control-group">

@@ -1,13 +1,16 @@
 package com.zuhlke.library.dao;
 
-import com.yammer.dropwizard.hibernate.AbstractDAO;
-import com.zuhlke.library.core.Book;
+import static org.hibernate.criterion.Restrictions.disjunction;
+import static org.hibernate.criterion.Restrictions.ilike;
+
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
-import java.util.List;
+import com.yammer.dropwizard.hibernate.AbstractDAO;
+import com.zuhlke.library.core.Book;
 
 public class BookDAO extends AbstractDAO<Book> {
 
@@ -31,9 +34,11 @@ public class BookDAO extends AbstractDAO<Book> {
         return list(criteria().addOrder(Order.asc("title")));
     }
     
-    public List<Book> findByTitle(String title) {
+    public List<Book> findByTitleOrAuthor(String query) {
         return list(criteria()
-                .add(Restrictions.ilike("title", title, MatchMode.START))
+                .add(disjunction()
+                    .add(ilike("title", query, MatchMode.ANYWHERE))
+                    .add(ilike("author", query, MatchMode.ANYWHERE)))
                 .addOrder(Order.asc("title")));
     }
     

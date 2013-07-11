@@ -57,7 +57,7 @@ public class BookDAOTest {
         List<Book> books = null;
         Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
         try {
-            books = dao.findByTitle("java");
+            books = dao.findByTitleOrAuthor("java");
             
         } finally {
             tx.commit();

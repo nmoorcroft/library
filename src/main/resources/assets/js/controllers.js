@@ -1,4 +1,5 @@
 function LoginCtrl($scope, $http, $location, userService, loginService) {
+  $scope.user = {};
   $scope.login = function(user) {
     loginService.setHeaders(user.username, user.password);
     $http.get('api/authenticate').success(function(data) {
@@ -11,13 +12,16 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
     });
   };
 
+  $scope.cancel = function() {
+    $location.path('/books');
+  };
+  
   $('#input-username').focus();
 
 }
 
 function BookListCtrl($scope, $location, bookService) {
   $scope.books = bookService.query();
-  
   $scope.query = '';
 
   $scope.search = function(query) {

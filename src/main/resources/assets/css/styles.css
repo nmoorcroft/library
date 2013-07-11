@@ -1,15 +1,38 @@
+/* general */
 body { padding-top: 20px; }
+img.logo { width: 80px; }
+.header h1 { font-size: 40px; display: inline-block; padding-left: 22px;}
+.header .menu { float: right; }
+.header a.login { border-right: 1px solid; }
+.header a { padding: 0 5px 0 5px; }
 
 /* books.html */
 #book-listing img { height: 130px; float: left; padding: 0 15px 5px 0; }
-#book-listing p { max-height: 130px; text-overflow: ellipsis; }
+#book-listing p { max-height: 130px; }
 div.book-description-wrapper { overflow: hidden; }
+#search-form { float: right; }
 
-
-/* book-detail.hmtl */
+/* book-detail.html */
 #book-detail-form input#input-title { width: 375px; }
 #book-detail-form input#input-author { width: 375px; }
 #book-detail-form textarea#input-description { width: 450px; }
 #book-detail-form img { width: 120px; margin-top: 10px; border: 1px solid #ccc; display: block; }
 
+@media screen and (max-width: 768px) {
+  #book-detail-form input#input-title { width: 100%; }
+  #book-detail-form input#input-author { width: 100%; }
+  #book-detail-form textarea#input-description { width: 100%; }
+}
+
+@media screen and (max-width: 480px) { 
+  #book-listing img { height: 100px; }
+  #book-listing p { max-height: 95px; }
+  .header img { display: none; }
+  .header h1 { display: block; padding: 0; }
+  .header .menu { float: none; }
+  .header a { display: block; padding: 0; }
+  .header a.login { border: 0px; }
+  #search-form { float: none; padding-top: 10px; }
+  .header { margin: 0 0 10px 0; }
+}
 

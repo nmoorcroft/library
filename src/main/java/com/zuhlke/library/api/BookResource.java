@@ -33,7 +33,7 @@ public class BookResource {
 	    if (isNullOrEmpty(query)) {
 	        return dao.findAll();
 	    } else {
-	        return dao.findByTitle(query);
+	        return dao.findByTitleOrAuthor(query);
 	    }
 	}
 	

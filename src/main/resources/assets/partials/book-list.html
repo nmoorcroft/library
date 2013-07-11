@@ -1,20 +1,18 @@
+<div data-navbar></div>
 <div class="row">
-  <div class="span9"></div>
-  <div class="span3">
-    <form id="searchForm" data-ng-submit="search(query)">
-      <div class="control-group">
-        <div class="controls">
-          <div class="input-append">
-            <input type="text" id="search-input" placeholder="Book Title" data-ng-model="query" />
-            <span class="add-on" data-ng-click="searchIcon()">
-            <i class="icon-search" data-ng-show="!showClear"></i>
-            <i class="icon-remove-sign" data-ng-show="showClear"></i>
-            </span>
-          </div>
+  <form id="search-form" data-ng-submit="search(query)">
+    <div class="control-group">
+      <div class="controls">
+        <div class="input-append">
+          <input type="text" id="search-input" placeholder="Search by title or author" data-ng-model="query" />
+          <span class="add-on" data-ng-click="searchIcon()">
+          <i class="icon-search" data-ng-show="!showClear"></i>
+          <i class="icon-remove-sign" data-ng-show="showClear"></i>
+          </span>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
 <div class="row">
   <div id="book-listing" class="span12">
