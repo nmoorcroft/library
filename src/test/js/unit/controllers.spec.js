@@ -1,348 +1,381 @@
 describe("Controller Tests", function() {
 
-	var books = [ {
-		id : 1,
-		title : "Domain-Driven Design",
-		isbn : "0-321-12521-5",
-		author : "Eric Evans"
-	}, {
-		id : 3,
-		title : "Java Persistence with Hibernate",
-		isbn : "1-932394-88-5",
-		author : "Christian Bauer, Gavin King"
-	} ];
-	
-	describe('BookListCtrl', function() {
-		var $scope = null;
-		var $httpBackend = null;
-		var $controller = null;
-
-		beforeEach(module('library.services'));
-
-		beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
-			$scope = $rootScope.$new();
-			$httpBackend = _$httpBackend_;
-			$controller = _$controller_;
-		}));
-
-		beforeEach(function() {
-			this.addMatchers({
-				// we need to use toEqualData because the Resource hase extra
-				// properties which make simple .toEqual not work.
-				toEqualData : function(expect) {
-					return angular.equals(expect, this.actual);
-				}
-			});
-		});
-		
-		beforeEach(function() {
-			$httpBackend.when('GET', 'api/books').respond( books );
-		});
-
-		afterEach(function() {
-			$httpBackend.verifyNoOutstandingExpectation();
-			$httpBackend.verifyNoOutstandingRequest();
-		});
-		
-		it('loads all books when started', function() {
-
-			$httpBackend.expectGET('api/books').respond( books );
-
-			$controller(BookListCtrl, {
-				$scope : $scope
-			});
-
-			expect($scope.search).toBeDefined();
-			expect($scope.searchIcon).toBeDefined();
-			expect($scope.select).toBeDefined();
-
-			expect($scope.books).toEqual([]);
-
-			$httpBackend.flush();
-
-			expect($scope.books).toEqualData( books );
-
-		});
-
-		it('should search for books using query', function() {
-
-			$controller(BookListCtrl, { $scope : $scope });
-			
-			$httpBackend.expectGET('api/books?q=query').respond(books);
-
-			$scope.query = 'query';
-			$scope.search($scope.query);
-			
-			$httpBackend.flush();
-			
-			expect($scope.showClear).toBe(true);
-			
-			$scope.query = '';
-			$scope.$apply('query');
-			expect($scope.showClear).toBe(false);
-
-
-			
-		});
-
-		it('should hide the clear button for an empty search', function() {
-
-			$controller(BookListCtrl, { $scope : $scope });
-			
-			$httpBackend.expectGET('api/books?q=').respond(books);
-
-			$scope.search('');
-			
-			$httpBackend.flush();
-			
-			expect($scope.showClear).toBe(false);
-			
-			
-		});
-
+  var books = [ {
+    id : 1,
+    title : "Domain-Driven Design",
+    isbn : "0-321-12521-5",
+    author : "Eric Evans"
+  }, {
+    id : 3,
+    title : "Java Persistence with Hibernate",
+    isbn : "1-932394-88-5",
+    author : "Christian Bauer, Gavin King"
+  } ];
 
-		it('should select a book by id', inject(function($location) {
+  describe('BookListCtrl', function() {
+    var $scope = null;
+    var $httpBackend = null;
+    var $controller = null;
 
-			$controller(BookListCtrl, { $scope : $scope });
-			$httpBackend.flush();
-			
-			spyOn($location, 'path');
-			
-			$scope.select(1);
-			
-			expect($location.path).toHaveBeenCalledWith('/books/1');
+    beforeEach(module('library.services'));
 
-		}));
+    beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      $controller = _$controller_;
+    }));
 
-		it('should clear search when icon clear clicked', function() {
+    beforeEach(function() {
+      this.addMatchers({
+        // we need to use toEqualData because the Resource hase extra
+        // properties which make simple .toEqual not work.
+        toEqualData : function(expect) {
+          return angular.equals(expect, this.actual);
+        }
+      });
+    });
 
-			$controller(BookListCtrl, { $scope : $scope });
-			$httpBackend.flush();
+    beforeEach(function() {
+      $httpBackend.when('GET', 'api/books').respond(books);
+    });
 
-			spyOn($scope, 'search');
-			
-			$scope.showClear = true;
-			$scope.query = 'query';
-			$scope.searchIcon();
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
 
-			expect($scope.search).toHaveBeenCalledWith('');
+    it('loads all books when started', function() {
 
-		});
+      $httpBackend.expectGET('api/books').respond(books);
 
-		it('should execute search when icon search clicked', function() {
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
 
-			$controller(BookListCtrl, { $scope : $scope });
-			$httpBackend.flush();
-			
-			spyOn($scope, 'search');
-			$scope.showClear = false;
-			$scope.query = 'query';
+      expect($scope.search).toBeDefined();
+      expect($scope.searchIcon).toBeDefined();
+      expect($scope.select).toBeDefined();
 
-			$scope.searchIcon();
+      expect($scope.books).toEqual([]);
 
-			expect($scope.search).toHaveBeenCalledWith('query');
+      $httpBackend.flush();
 
-		});
+      expect($scope.books).toEqualData(books);
 
+    });
 
-	});
+    it('should search for books using query', function() {
 
-	describe('LoginCtrl', function() {
-		var $scope = null;
-		var $httpBackend = null;
-		var $controller = null;
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
 
-		beforeEach(module('library.services'));
+      $httpBackend.expectGET('api/books?q=query').respond(books);
 
-		beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
-			$scope = $rootScope.$new();
-			$httpBackend = _$httpBackend_;
-			$controller = _$controller_;
-		}));
+      $scope.query = 'query';
+      $scope.search($scope.query);
 
-		afterEach(function() {
-			$httpBackend.verifyNoOutstandingExpectation();
-			$httpBackend.verifyNoOutstandingRequest();
-		});
+      $httpBackend.flush();
 
-		it('should login via auth service', inject(function($location) {
+      expect($scope.showClear).toBe(true);
 
-			var mockUserService = {};
+      $scope.query = '';
+      $scope.$apply('query');
+      expect($scope.showClear).toBe(false);
 
-			$controller(LoginCtrl, {
-				$scope : $scope,
-				userService : mockUserService
-			});
-			
-			$scope.user = {};
-			$scope.user.username = "neil";
-			$scope.$apply('user');
+    });
 
-			$httpBackend.expectGET('api/authenticate', undefined, function(headers) {
-				return headers['Authorization'] == 'ssss';
-			}).respond({ name : 'Me' });
+    it('should hide the clear button for an empty search', function() {
 
-			spyOn($location, 'path');
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
 
-			$scope.login({
-				username : 'username',
-				password : 'password'
-			});
-			
-			$httpBackend.flush();
+      $httpBackend.expectGET('api/books?q=').respond(books);
 
-			expect(mockUserService.currentUser.name).toBe('Me');
-			expect($location.path).toHaveBeenCalledWith('/books');
+      $scope.search('');
 
-		}));
+      $httpBackend.flush();
 
-		it('should display error for invalid username/password', inject(function($location) {
+      expect($scope.showClear).toBe(false);
 
-			var mockUserService = {};
+    });
 
-			$controller(LoginCtrl, {
-				$scope : $scope,
-				userService : mockUserService
-			});
+    it('should select a book by id', inject(function($location) {
 
-			$httpBackend.expectGET('api/authenticate').respond(401, '');
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
+      $httpBackend.flush();
 
-			$scope.login({
-				username : 'username',
-				password : 'password'
-			});
+      spyOn($location, 'path');
 
-			$httpBackend.flush();
+      $scope.select(1);
 
-			expect($scope.error).toBe('Invalid username or password.');
+      expect($location.path).toHaveBeenCalledWith('/books/1');
 
+    }));
 
-		}));
+    it('should clear search when icon clear clicked', function() {
 
-	});
-	
-	describe('BookDetailCtrl', function() {
-		var $scope = null;
-		var $httpBackend = null;
-		var $controller = null;
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
+      $httpBackend.flush();
 
-		beforeEach(module('library.services'));
+      spyOn($scope, 'search');
 
-		beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
-			$scope = $rootScope.$new();
-			$httpBackend = _$httpBackend_;
-			$controller = _$controller_;
-		}));
-		
-		beforeEach(function() {
-			$httpBackend.when('GET', 'api/books/1').respond({
-				id : 1,
-				title : "Domain-Driven Design",
-				isbn : "0-321-12521-5",
-				author : "Eric Evans"
-			});
-		});
-		
-		afterEach(function() {
-			$httpBackend.verifyNoOutstandingExpectation();
-			$httpBackend.verifyNoOutstandingRequest();
-		});
+      $scope.showClear = true;
+      $scope.query = 'query';
+      $scope.searchIcon();
 
-		it('should configure fileupload control', function() {
-            var bootstrapFileInput = spyOn($.fn, 'bootstrapFileInput');
-            var uploadParams;
-            var fileupload = spyOn($.fn, 'fileupload').andCallFake(function(params) {
-               uploadParams = params;
-            });
+      expect($scope.search).toHaveBeenCalledWith('');
 
-			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
+    });
 
-            $httpBackend.flush();
+    it('should execute search when icon search clicked', function() {
 
-            expect(bootstrapFileInput.mostRecentCall.object.selector).toEqual('#inputArtwork');
-            expect(bootstrapFileInput).toHaveBeenCalled();
+      $controller(BookListCtrl, {
+        $scope : $scope
+      });
+      $httpBackend.flush();
 
-            expect(fileupload).toHaveBeenCalled();
+      spyOn($scope, 'search');
+      $scope.showClear = false;
+      $scope.query = 'query';
 
-            // also test the callback
-            uploadParams.done('', { result : 'xxx'});
-            expect($scope.book.artwork).toEqual('xxx');
+      $scope.searchIcon();
 
+      expect($scope.search).toHaveBeenCalledWith('query');
 
-		});
+    });
 
-		it('should load a book by id', inject(function($location) {
+  });
 
-			$httpBackend.expectGET('api/books/1').respond({});
+  describe('LoginCtrl', function() {
+    var $scope = null;
+    var $httpBackend = null;
+    var $controller = null;
 
-			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
-			
-			$httpBackend.flush();
+    beforeEach(module('library.services'));
 
-			expect($scope.save).toBeDefined();
-			expect($scope.remove).toBeDefined();
-			expect($scope.cancel).toBeDefined();
-			
-		}));
+    beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      $controller = _$controller_;
+    }));
 
-		it('should load an empty book', inject(function($location) {
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
 
-			$controller(BookDetailCtrl, { $scope: $scope });
-			
-			expect($scope.save).toBeDefined();
-			expect($scope.remove).toBeDefined();
-			expect($scope.cancel).toBeDefined();
-			
-			$httpBackend.verifyNoOutstandingRequest();
+    it('should login via auth service', inject(function($location) {
 
-		}));
+      var mockUserService = {};
 
-		it('should save a book', inject(function($location) {
+      $controller(LoginCtrl, {
+        $scope : $scope,
+        userService : mockUserService
+      });
 
-			spyOn($location, 'path');
-			
-			$httpBackend.expectPOST('api/books').respond({});
+      $scope.user = {};
+      $scope.user.username = "neil";
+      $scope.$apply('user');
 
-			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
+      $httpBackend.expectGET('api/authenticate', undefined, function(headers) {
+        return headers['Authorization'] == 'ssss';
+      }).respond({
+        name : 'Me'
+      });
 
-			$scope.save({
-				id : 1,
-				title : "Domain-Driven Design - modified",
-				isbn : "0-321-12521-5",
-				author : "Eric Evans"
-			});
-			
-			$httpBackend.flush();
-			
-			expect($location.path).toHaveBeenCalledWith('/books');
+      spyOn($location, 'path');
 
-			
-		}));
+      $scope.login({
+        username : 'username',
+        password : 'password'
+      });
 
-		it('should remove a book', inject(function($location) {
+      $httpBackend.flush();
 
-			spyOn($location, 'path');
-			
-			$httpBackend.expectDELETE('api/books/1').respond({});
+      expect(mockUserService.currentUser.name).toBe('Me');
+      expect($location.path).toHaveBeenCalledWith('/books');
 
-			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
+    }));
 
-			$scope.remove(1);
-			
-			$httpBackend.flush();
+    it('should display error for invalid username/password', inject(function($location) {
 
-			expect($location.path).toHaveBeenCalledWith('/books');
+      var mockUserService = {};
 
-		}));
+      $controller(LoginCtrl, {
+        $scope : $scope,
+        userService : mockUserService
+      });
 
-		it('should cancel', inject(function($location) {
-			spyOn($location, 'path');
-			$controller(BookDetailCtrl, { $scope: $scope, $routeParams: { bookId : 1 }});
-			$httpBackend.flush();
-			$scope.cancel(1);
-			expect($location.path).toHaveBeenCalledWith('/books');
-		}));
+      $httpBackend.expectGET('api/authenticate').respond(401, '');
 
-	});
+      $scope.login({
+        username : 'username',
+        password : 'password'
+      });
+
+      $httpBackend.flush();
+
+      expect($scope.error).toBe('Invalid username or password.');
+
+    }));
+
+  });
+
+  describe('BookDetailCtrl', function() {
+    var $scope = null;
+    var $httpBackend = null;
+    var $controller = null;
+
+    beforeEach(module('library.services'));
+
+    beforeEach(inject(function($rootScope, _$controller_, _$httpBackend_) {
+      $scope = $rootScope.$new();
+      $httpBackend = _$httpBackend_;
+      $controller = _$controller_;
+    }));
+
+    beforeEach(function() {
+      $httpBackend.when('GET', 'api/books/1').respond({
+        id : 1,
+        title : "Domain-Driven Design",
+        isbn : "0-321-12521-5",
+        author : "Eric Evans"
+      });
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should configure fileupload control', function() {
+      var bootstrapFileInput = spyOn($.fn, 'bootstrapFileInput');
+      var uploadParams;
+      var fileupload = spyOn($.fn, 'fileupload').andCallFake(function(params) {
+        uploadParams = params;
+      });
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+
+      $httpBackend.flush();
+
+      expect(bootstrapFileInput.mostRecentCall.object.selector).toEqual('#input-artwork');
+      expect(bootstrapFileInput).toHaveBeenCalled();
+
+      expect(fileupload).toHaveBeenCalled();
+
+      // test the callback
+      uploadParams.done('', {
+        result : 'xxx'
+      });
+      expect($scope.book.artwork).toEqual('xxx');
+
+    });
+
+    it('should load a book by id', inject(function($location) {
+
+      $httpBackend.expectGET('api/books/1').respond({});
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+
+      $httpBackend.flush();
+
+      expect($scope.save).toBeDefined();
+      expect($scope.remove).toBeDefined();
+      expect($scope.cancel).toBeDefined();
+
+    }));
+
+    it('should load an empty book', inject(function($location) {
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope
+      });
+
+      expect($scope.save).toBeDefined();
+      expect($scope.remove).toBeDefined();
+      expect($scope.cancel).toBeDefined();
+
+      $httpBackend.verifyNoOutstandingRequest();
+
+    }));
+
+    it('should save a book', inject(function($location) {
+
+      spyOn($location, 'path');
+
+      $httpBackend.expectPOST('api/books').respond({});
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+
+      $scope.save({
+        id : 1,
+        title : "Domain-Driven Design - modified",
+        isbn : "0-321-12521-5",
+        author : "Eric Evans"
+      });
+
+      $httpBackend.flush();
+
+      expect($location.path).toHaveBeenCalledWith('/books');
+
+    }));
+
+    it('should remove a book', inject(function($location) {
+
+      spyOn($location, 'path');
+
+      $httpBackend.expectDELETE('api/books/1').respond({});
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+
+      $scope.remove(1);
+
+      $httpBackend.flush();
+
+      expect($location.path).toHaveBeenCalledWith('/books');
+
+    }));
+
+    it('should cancel', inject(function($location) {
+      spyOn($location, 'path');
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+      $httpBackend.flush();
+      $scope.cancel(1);
+      expect($location.path).toHaveBeenCalledWith('/books');
+    }));
+
+  });
 
 });

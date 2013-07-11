@@ -1,14 +1,15 @@
-body { padding-top: 60px; }
+body { padding-top: 20px; }
 
 /* books.html */
-tr.book-row:hover { cursor: pointer; }
-table.books th.title, td.title { width: 60%; }
-table.books th.author, td.author { width: 40%; }
+#book-listing img { height: 130px; float: left; padding: 0 15px 5px 0; }
+#book-listing p { max-height: 130px; text-overflow: ellipsis; }
+div.book-description-wrapper { overflow: hidden; }
+
 
 /* book-detail.hmtl */
-#bookDetailForm input#inputTitle { width: 375px; }
-#bookDetailForm input#inputAuthor { width: 375px; }
-#bookDetailForm textarea#inputDescription { width: 450px; }
-#bookDetailForm img { width: 120px; margin-top: 10px; border: 1px solid #ccc; display: block; }
+#book-detail-form input#input-title { width: 375px; }
+#book-detail-form input#input-author { width: 375px; }
+#book-detail-form textarea#input-description { width: 450px; }
+#book-detail-form img { width: 120px; margin-top: 10px; border: 1px solid #ccc; display: block; }
 
 

@@ -1,14 +1,14 @@
-<form novalidate class="form-horizontal" name="loginForm" data-ng-submit="login(user)">
+<form novalidate class="form-horizontal" name="login-form" data-ng-submit="login(user)">
   <div class="control-group">
-    <label class="control-label" for="inputUsername">Username</label>
+    <label class="control-label" for="input-username">Username</label>
     <div class="controls">
-      <input type="text" id="inputUsername" class="input-large" data-ng-model="user.username" required>
+      <input type="text" id="input-username" class="input-large" data-ng-model="user.username" required>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="inputPassword">Password</label>
+    <label class="control-label" for="input-password">Password</label>
     <div class="controls">
-      <input type="password" id="inputPassword" class="input-large" data-ng-model="user.password" required>
+      <input type="password" id="input-password" class="input-large" data-ng-model="user.password" required>
     </div>
   </div>
   <div class="control-group">
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="control-group">
-  	<div class="alert alert-error" data-ng-show="error">{{error}}</div>  
+    <div class="alert alert-error" data-ng-show="error">{{error}}</div>
   </div>
 </form>
 

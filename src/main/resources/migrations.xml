@@ -27,7 +27,7 @@
         <constraints nullable="false" />
       </column>
       <column name="artwork" type="varchar(500)">
-          <constraints nullable="true" />
+        <constraints nullable="true" />
       </column>
     </createTable>
   </changeSet>

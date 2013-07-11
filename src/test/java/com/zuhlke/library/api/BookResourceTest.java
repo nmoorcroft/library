@@ -21,6 +21,7 @@ public class BookResourceTest {
         new BookBuilder().id(2L).title("book2").build(),
         new BookBuilder().id(3L).title("book3").build()
     );
+    
     final Book book = new BookBuilder().id(1L).title("book title").build();
     final BookDAO mockDao = Mockito.mock(BookDAO.class);
     
