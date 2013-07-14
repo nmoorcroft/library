@@ -1,4 +1,4 @@
-angular.module('library', [ 'library.services', 'library.filters', 'library.directives' ])
+angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.directives' ])
 
 .config(function($routeProvider) {
   $routeProvider.when('/login', {
