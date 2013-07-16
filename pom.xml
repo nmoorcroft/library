@@ -58,7 +58,7 @@
       <version>1.9.5</version>
       <scope>test</scope>
     </dependency>
-
+    
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
@@ -140,7 +140,7 @@
         </executions>
         <configuration>
           <browsers>PhantomJS</browsers>
-          <configFile>src/test/js/karma.conf.js</configFile>
+          <configFile>src/test/javascript/karma.conf.js</configFile>
         </configuration>
 
       </plugin>
