@@ -10,7 +10,7 @@ import static org.apache.commons.io.FileUtils.readFileToByteArray;
 
 public class ArtworkHelper {
 
-    static final String imgStore = "tmp";
+    static final String imgStore = "tmp/content";
 
     public static String saveArtwork(byte[] artwork) throws IOException {
         String uuid = UUID.randomUUID().toString();

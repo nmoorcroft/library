@@ -53,6 +53,7 @@ function BookDetailCtrl($scope, $routeParams, $location, bookService) {
   var id = $routeParams.bookId;
   if (_.isUndefined(id)) {
     $scope.book = {};
+
   } else {
     $scope.book = bookService.get({
       bookId : id

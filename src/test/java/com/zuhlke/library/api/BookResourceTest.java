@@ -1,18 +1,27 @@
 package com.zuhlke.library.api;
 
-import com.zuhlke.library.core.Book;
-import com.zuhlke.library.core.BookBuilder;
-import com.zuhlke.library.dao.BookDAO;
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import javax.ws.rs.WebApplicationException;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import com.zuhlke.library.core.Book;
+import com.zuhlke.library.core.BookBuilder;
+import com.zuhlke.library.core.User;
+import com.zuhlke.library.core.UserBuilder;
+import com.zuhlke.library.core.UserRole;
+import com.zuhlke.library.dao.BookDAO;
 
 public class BookResourceTest {
 
@@ -71,25 +80,72 @@ public class BookResourceTest {
     public void shouldSaveBook() throws Exception {
         // arrange
         BookResource resource = new BookResource(mockDao);
+        User user = new UserBuilder().role(UserRole.ADMINISTRATOR).build();
         
         // act
-        resource.saveBook(book);
+        resource.saveBook(user, book);
         
         // assert
         verify(mockDao).save(book);
     }
     
     @Test
+    public void shouldNotBeAuthorizedToSave() throws Exception {
+        // arrange
+        BookResource resource = new BookResource(mockDao);
+        User user = new UserBuilder().role(UserRole.USER).build();
+        
+        // act
+        WebApplicationException exception = null;
+        try {
+            resource.saveBook(user, book);
+
+        } catch (WebApplicationException e) {
+            exception = e;
+        }
+        
+        // assert
+        verifyZeroInteractions(mockDao);
+        assertNotNull(exception);
+        assertEquals(exception.getResponse().getStatus(), 401);
+    
+    }
+    
+    @Test
     public void shouldDeleteBook() throws Exception {
         // arrange 
         BookResource resource = new BookResource(mockDao);
+        User user = new UserBuilder().role(UserRole.ADMINISTRATOR).build();
         
         // act 
-        resource.deleteBook(1L);
+        resource.deleteBook(user, 1L);
         
         // assert
         verify(mockDao).delete(1L);
 
     }
     
+    @Test
+    public void shouldNotBeAuthorizedToDelete() throws Exception {
+        // arrange
+        BookResource resource = new BookResource(mockDao);
+        User user = new UserBuilder().role(UserRole.USER).build();
+        
+        // act
+        WebApplicationException exception = null;
+        try {
+            resource.deleteBook(user, 1L);
+
+        } catch (WebApplicationException e) {
+            exception = e;
+        }
+        
+        // assert
+        verifyZeroInteractions(mockDao);
+        assertNotNull(exception);
+        assertEquals(exception.getResponse().getStatus(), 401);
+    
+    }
+    
+
 }

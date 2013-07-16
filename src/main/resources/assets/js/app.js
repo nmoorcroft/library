@@ -29,7 +29,7 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
       return response;
     }
     function error(response) {
-      if (_.contains([ 404, 415, 500 ], response.status)) {
+      if (_.contains([ 418, 404, 415, 500 ], response.status)) {
         $('#error-dialog').modal().on('hidden', function() {
           window.location = '.';
         });
@@ -41,7 +41,8 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
     };
   }
   $httpProvider.responseInterceptors.push(errorInterceptor);
-
+  $httpProvider.defaults.headers.common['X-StatusOnLoginFail'] = '418';
+  
 })
 
 .run(function($rootScope, $location, userService) {

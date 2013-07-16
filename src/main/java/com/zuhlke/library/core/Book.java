@@ -15,7 +15,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 
-@Entity @Table(name = "books")
+import com.google.common.base.Objects;
+
+@Entity @Table(name = "book")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Book implements Serializable {
 
@@ -27,24 +29,24 @@ public class Book implements Serializable {
 	@Column(name = "book_id")
 	private Long id;
 	
-	@Basic(optional = false)
-	@Length(max = 500)
 	@Column(name = "title")
+	@Length(max = 500)
+	@Basic(optional = false)
 	private String title;
 	
-	@Basic(optional = true) 
-	@Length(max = 2000)
 	@Column(name = "description")
+	@Length(max = 2000)
+	@Basic(optional = true) 
 	private String description;
 
-	@Basic(optional = false) 
-	@Length(max = 255)
 	@Column(name = "author")
+	@Length(max = 255)
+	@Basic(optional = false) 
 	private String author;
 	
-    @Basic(optional = true) 
+	@Column(name = "artwork")
     @Length(max = 255)
-    @Column(name = "artwork")
+	@Basic(optional = true) 
 	private String artwork;
 	
 	Book() { }
@@ -96,7 +98,7 @@ public class Book implements Serializable {
 	
 	@Override
 	public String toString() {
-		return String.format("id: %s; title: %s; description: %s; artwork: %s", getId(), getTitle(), getDescription(), getArtwork());
+		return Objects.toStringHelper(this).toString();
 	}
 	
 

@@ -2,6 +2,7 @@ package com.zuhlke.library;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
+import com.yammer.dropwizard.auth.basic.BasicAuthProvider;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
@@ -10,7 +11,9 @@ import com.yammer.dropwizard.migrations.MigrationsBundle;
 import com.zuhlke.library.api.ArtworkResource;
 import com.zuhlke.library.api.BookResource;
 import com.zuhlke.library.core.Book;
+import com.zuhlke.library.core.User;
 import com.zuhlke.library.dao.BookDAO;
+import com.zuhlke.library.dao.UserDAO;
 
 public class LibraryService extends Service<LibraryConfiguration> {
 
@@ -40,8 +43,11 @@ public class LibraryService extends Service<LibraryConfiguration> {
 
     @Override
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
-        environment.addResource(new BookResource(new BookDAO(hibernate.getSessionFactory())));
+        BookDAO bookDAO = new BookDAO(hibernate.getSessionFactory());
+        UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
+        environment.addResource(new BookResource(bookDAO));
         environment.addResource(new ArtworkResource());
+        environment.addProvider(new BasicAuthProvider<User>(new LibraryAuthenticator(userDAO), "Library Realm"));
     }
 
 }

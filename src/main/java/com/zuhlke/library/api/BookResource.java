@@ -1,8 +1,11 @@
 package com.zuhlke.library.api;
 
+import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.core.Book;
+import com.zuhlke.library.core.User;
+import com.zuhlke.library.core.UserRole;
 import com.zuhlke.library.dao.BookDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,13 +52,19 @@ public class BookResource {
     @POST 
     @UnitOfWork 
     @Consumes(MediaType.APPLICATION_JSON)
-    public void saveBook(Book book) {
+    public void saveBook(@Auth User user, Book book) {
+        if (user.getRole() != UserRole.ADMINISTRATOR) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
         dao.save(book);
     }
 
     @DELETE @Path("/{id}") 
     @UnitOfWork
-    public void deleteBook(@PathParam("id") Long id) {
+    public void deleteBook(@Auth User user, @PathParam("id") Long id) {
+        if (user.getRole() != UserRole.ADMINISTRATOR) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
         dao.delete(id);
     }
 

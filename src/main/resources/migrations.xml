@@ -12,8 +12,10 @@
         <constraints nullable="false" />
       </column>
     </createTable>
+  </changeSet>
 
-    <createTable tableName="books">
+  <changeSet id="2" author="nmo">
+    <createTable tableName="book">
       <column name="book_id" type="bigint">
         <constraints primaryKey="true" nullable="false" />
       </column>
@@ -30,6 +32,36 @@
         <constraints nullable="true" />
       </column>
     </createTable>
+  </changeSet>
+  
+  <changeSet id="3" author="nmo">
+    <createTable tableName="library_user">
+      <column name="user_id" type="bigint">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="email" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="password" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="role" type="varchar(20)">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    
+    <insert tableName="library_user">
+      <column name="user_id" value="1" />
+      <column name="email" value="nmo@zuhlke.com" />
+      <column name="password" value="password" />
+      <column name="role" value="ADMINISTRATOR" />
+    </insert>  
+
+    <insert tableName="hibernate_sequences">
+      <column name="sequence_name" value="library_user" />
+      <column name="next_val" value="101" />
+    </insert>  
+    
   </changeSet>
 
 </databaseChangeLog>
