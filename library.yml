@@ -8,11 +8,10 @@ logging:
   level: INFO
   loggers:
     "com.zuhlke.library": DEBUG
-    "org.hibernate.SQL": DEBUG
     "org.eclipse.jetty": INFO
     "org.springframework": INFO
     "org.hibernate": WARN
-    
+    "org.hibernate.SQL": DEBUG
 
 database:
   driverClass: org.h2.Driver

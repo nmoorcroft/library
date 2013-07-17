@@ -51,18 +51,17 @@ function BookListCtrl($scope, $location, bookService) {
 
 function BookDetailCtrl($scope, $routeParams, $location, bookService) {
   var id = $routeParams.bookId;
-  if (_.isUndefined(id)) {
-    $scope.book = {};
-
-  } else {
+  if (!_.isUndefined(id)) {
     $scope.book = bookService.get({
       bookId : id
     });
   }
 
   $scope.artworkUrl = function() {
-    if (!_.isUndefined($scope.book.artwork)) {
-      return 'api/artwork/' + $scope.book.artwork;
+    if (!_.isUndefined($scope.book)) {
+      if (!_.isUndefined($scope.book.artwork)) {
+        return 'api/artwork/' + $scope.book.artwork;
+      }
     }
     return '';
   }
