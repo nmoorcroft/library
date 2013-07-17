@@ -1,4 +1,7 @@
-package com.zuhlke.library.core;
+package com.zuhlke.library.domain;
+
+import com.zuhlke.library.domain.User;
+import com.zuhlke.library.domain.UserRole;
 
 public class UserBuilder {
 

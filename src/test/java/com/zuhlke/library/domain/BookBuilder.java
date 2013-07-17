@@ -1,4 +1,6 @@
-package com.zuhlke.library.core;
+package com.zuhlke.library.domain;
+
+import com.zuhlke.library.domain.Book;
 
 public class BookBuilder {
 

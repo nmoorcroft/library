@@ -1,10 +1,18 @@
 http:
   rootPath: /api/*  # Default is /*
+  requestLog:
+    console:
+      enabled: false
   
 logging:
   level: INFO
   loggers:
     "com.zuhlke.library": DEBUG
+    "org.hibernate.SQL": DEBUG
+    "org.eclipse.jetty": INFO
+    "org.springframework": INFO
+    "org.hibernate": WARN
+    
 
 database:
   driverClass: org.h2.Driver

@@ -1,4 +1,4 @@
-package com.zuhlke.library.core;
+package com.zuhlke.library.domain;
 
 public enum UserRole {
 

@@ -24,12 +24,29 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
 })
 
 .config(function($httpProvider) {
+  function authInterceptor($q, $log, $location) {
+    function success(response) {
+      return response;
+    }
+    function error(response) {
+      var status = response.status;
+      if (status == 401) {
+        $location.path("/login");
+      }
+      return $q.reject(response); 
+    }
+    return function(promise) {
+      return promise.then(success, error);
+    };
+  }
+  $httpProvider.responseInterceptors.push(authInterceptor);
+  
   function errorInterceptor($q, $log, $location) {
     function success(response) {
       return response;
     }
     function error(response) {
-      if (_.contains([ 418, 404, 415, 500 ], response.status)) {
+      if (_.contains([ 404, 415, 500 ], response.status)) {
         $('#error-dialog').modal().on('hidden', function() {
           window.location = '.';
         });
@@ -41,7 +58,6 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
     };
   }
   $httpProvider.responseInterceptors.push(errorInterceptor);
-  $httpProvider.defaults.headers.common['X-StatusOnLoginFail'] = '418';
   
 })
 
