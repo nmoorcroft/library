@@ -19,8 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.domain.Book;
+import com.zuhlke.library.domain.User;
 
 @Component
 @Path("/books")
@@ -48,12 +50,12 @@ public class BookResource {
 	
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
-    public void saveBook(Book book) {
+    public void saveBook(@Auth User user, Book book) {
         bookService.saveBook(book);
     }
 
     @DELETE @Path("/{id}") 
-    public void deleteBook(@PathParam("id") Long id) {
+    public void deleteBook(@Auth User user, @PathParam("id") Long id) {
         bookService.deleteBook(id);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
+import com.yammer.dropwizard.auth.basic.BasicAuthProvider;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
@@ -15,7 +16,9 @@ import com.yammer.dropwizard.db.ManagedDataSourceFactory;
 import com.yammer.dropwizard.migrations.MigrationsBundle;
 import com.zuhlke.library.artwork.ArtworkResource;
 import com.zuhlke.library.book.BookResource;
+import com.zuhlke.library.domain.User;
 import com.zuhlke.library.heathcheck.DatabaseHealthCheck;
+import com.zuhlke.library.security.LibraryAuthenticator;
 
 public class LibraryService extends Service<LibraryConfiguration> {
 
@@ -41,6 +44,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
         environment.addResource(context.getBean(BookResource.class));
         environment.addResource(context.getBean(ArtworkResource.class));
         environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
+        environment.addProvider(new BasicAuthProvider<User>(context.getBean(LibraryAuthenticator.class), "Library"));
     }
     
     

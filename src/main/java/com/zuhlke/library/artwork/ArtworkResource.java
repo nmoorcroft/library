@@ -1,20 +1,29 @@
 package com.zuhlke.library.artwork;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
-import com.yammer.dropwizard.jersey.caching.CacheControl;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.io.InputStream;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
+import com.yammer.dropwizard.auth.Auth;
+import com.yammer.dropwizard.jersey.caching.CacheControl;
+import com.zuhlke.library.domain.User;
 
 @Component
 @Path("/artwork")
@@ -38,7 +47,7 @@ public class ArtworkResource {
     
     @POST @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public String saveArtwork(@FormDataParam("files[]") InputStream in, @FormDataParam("files[]") FormDataContentDisposition file) throws Exception {
+    public String saveArtwork(@Auth User user, @FormDataParam("files[]") InputStream in, @FormDataParam("files[]") FormDataContentDisposition file) throws Exception {
         return artworkService.saveArtwork(IOUtils.toByteArray(in));
     }
 
