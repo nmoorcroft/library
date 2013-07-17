@@ -41,6 +41,11 @@ public class User implements Serializable {
     @Basic(optional = false)
     private String password;
     
+    @Column(name = "fullname")
+    @Length(max = 250)
+    @Basic(optional = false)
+    private String name;
+    
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
@@ -75,6 +80,14 @@ public class User implements Serializable {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     
     public UserRole getRole() {

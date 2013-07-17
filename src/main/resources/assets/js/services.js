@@ -15,7 +15,11 @@ angular.module('library.services', [ 'ngResource' ])
   return {
     setHeaders : function(username, password) {
       $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
+    },
+    clearHeaders : function() {
+      delete $http.defaults.headers.common.Authorization;
     }
+  
   };
 
 });

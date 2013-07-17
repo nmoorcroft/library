@@ -64,5 +64,14 @@
     
   </changeSet>
 
+  <changeSet id="4" author="nmo">
+    <addColumn tableName="library_user">
+      <column name="fullname" type="varchar(250)" defaultValue="Neil Moorcroft">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  
+  </changeSet>
+
 </databaseChangeLog>
 

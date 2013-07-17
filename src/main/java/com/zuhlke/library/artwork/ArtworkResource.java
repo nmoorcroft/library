@@ -21,9 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
-import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
-import com.zuhlke.library.domain.User;
 
 @Component
 @Path("/artwork")
@@ -47,7 +45,7 @@ public class ArtworkResource {
     
     @POST @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public String saveArtwork(@Auth User user, @FormDataParam("files[]") InputStream in, @FormDataParam("files[]") FormDataContentDisposition file) throws Exception {
+    public String saveArtwork(@FormDataParam("files[]") InputStream in, @FormDataParam("files[]") FormDataContentDisposition file) throws Exception {
         return artworkService.saveArtwork(IOUtils.toByteArray(in));
     }
 

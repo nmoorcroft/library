@@ -20,7 +20,7 @@ public class LibraryAuthenticator implements Authenticator<BasicCredentials, Use
     @Override
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
         User user = userService.findByEmail(credentials.getUsername());
-        if (user.getPassword().equals(credentials.getPassword())) {
+        if (user != null && user.getPassword().equals(credentials.getPassword())) {
             return Optional.of(user);
         } 
         return Optional.absent();

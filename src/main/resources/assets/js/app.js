@@ -24,23 +24,6 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
 })
 
 .config(function($httpProvider) {
-  function authInterceptor($q, $log, $location) {
-    function success(response) {
-      return response;
-    }
-    function error(response) {
-      var status = response.status;
-      if (status == 401) {
-        $location.path("/login");
-      }
-      return $q.reject(response); 
-    }
-    return function(promise) {
-      return promise.then(success, error);
-    };
-  }
-  $httpProvider.responseInterceptors.push(authInterceptor);
-  
   function errorInterceptor($q, $log, $location) {
     function success(response) {
       return response;
@@ -58,13 +41,16 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
     };
   }
   $httpProvider.responseInterceptors.push(errorInterceptor);
-  
+
 })
 
-.run(function($rootScope, $location, userService) {
-  /*
-   * $rootScope.$on('$routeChangeStart', function(event, next, current) { if
-   * (next.templateUrl !== "partials/login.html" && !userService.isLoggedIn()) {
-   * $location.path('/login'); } });
-   */
+.run(function($rootScope, userService, loginService, $location) {
+  $rootScope.logout = function() {
+    loginService.clearHeaders();
+    userService.currentUser = null;
+    $location.path('/');
+  };
+  
 });
+
+

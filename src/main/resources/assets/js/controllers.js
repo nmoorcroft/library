@@ -9,6 +9,7 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
     }).error(function(data) {
       $scope.error = 'Invalid username or password.';
       user.password = undefined;
+      $('#input-username').focus();
     });
   };
 
