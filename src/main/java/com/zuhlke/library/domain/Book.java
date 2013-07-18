@@ -1,13 +1,19 @@
 package com.zuhlke.library.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -15,6 +21,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Objects;
 
 @Entity @Table(name = "book")
@@ -48,6 +55,11 @@ public class Book implements Serializable {
     @Length(max = 255)
 	@Basic(optional = true) 
 	private String artwork;
+	
+	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+	@OrderBy("createdDate")
+	@JsonView(Views.WithComments.class)
+	private List<Comment> comments = new ArrayList<>();
 	
 	Book() { }
 	
@@ -94,6 +106,14 @@ public class Book implements Serializable {
 	
 	public void setArtwork(String artwork) {
         this.artwork = artwork;
+    }
+	
+	public List<Comment> getComments() {
+        return comments;
+    }
+	
+	protected void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 	
 	@Override

@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Objects;
 
 @Entity @Table(name = "library_user")
@@ -39,6 +40,7 @@ public class User implements Serializable {
     @Column(name = "password")
     @Length(max = 100)
     @Basic(optional = false)
+    @JsonView(Views.Internal.class)
     private String password;
     
     @Column(name = "fullname")

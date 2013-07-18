@@ -7,8 +7,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.yammer.dropwizard.auth.Auth;
 import com.zuhlke.library.domain.User;
+import com.zuhlke.library.domain.Views;
 
 @Component
 @Path("/authenticate")
@@ -16,8 +18,9 @@ import com.zuhlke.library.domain.User;
 public class AuthenticateResource {
 
     @GET
-    public UserAdapter authenticate(@Auth User user) {
-        return new UserAdapter(user);
+    @JsonView(Views.Public.class)
+    public User authenticate(@Auth User user) {
+        return user;
     }
     
 }

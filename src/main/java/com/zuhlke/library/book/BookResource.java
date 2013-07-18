@@ -19,10 +19,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.domain.Book;
 import com.zuhlke.library.domain.User;
+import com.zuhlke.library.domain.Views;
 
 @Component
 @Path("/books")
@@ -36,12 +38,14 @@ public class BookResource {
 	
 	@GET 
 	@CacheControl(noCache = true, mustRevalidate = true)
+	@JsonView(Views.Book.class)
 	public List<Book> getBooks(@QueryParam("q") String query) {
 	    return bookService.findBooks(query);
 	}
 	
 	@GET @Path("/{id}") 
     @CacheControl(noCache = true, mustRevalidate = true)
+    @JsonView(Views.Book.class)
     public Book getBook(@PathParam("id") Long id) {
         Book book = bookService.getBook(id);
         if (book != null) return book;
