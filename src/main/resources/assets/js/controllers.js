@@ -1,3 +1,5 @@
+'use strict';
+
 function LoginCtrl($scope, $http, $location, userService, loginService) {
   $scope.user = {};
   $scope.login = function(user) {
@@ -13,10 +15,6 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
     });
   };
 
-  $scope.cancel = function() {
-    $location.path('/books');
-  };
-  
   $('#input-username').focus();
 
 }
@@ -77,10 +75,6 @@ function BookDetailCtrl($scope, $routeParams, $location, bookService) {
     }, function() {
       $location.path('/books');
     });
-  };
-
-  $scope.cancel = function() {
-    $location.path('/books');
   };
 
   $('#input-artwork').bootstrapFileInput();

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('library.services', [ 'ngResource' ])
 
 .factory('bookService', function($resource) {

@@ -1,3 +1,5 @@
+'use strict';
+
 describe("Controller Tests", function() {
 
   var books = [ {
@@ -44,17 +46,20 @@ describe("Controller Tests", function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('loads all books when started', function() {
+    it('should load all books when started', function() {
 
+      var mockUserService = { isAdmin : function() { return false; } };
+      
       $httpBackend.expectGET('api/books').respond(books);
 
       $controller(BookListCtrl, {
-        $scope : $scope
+        $scope : $scope,
+        userService : mockUserService
       });
 
       expect($scope.search).toBeDefined();
       expect($scope.searchIcon).toBeDefined();
-      expect($scope.select).toBeDefined();
+      expect($scope.canEdit).toBe(false);
 
       expect($scope.books).toEqual([]);
 
@@ -62,6 +67,22 @@ describe("Controller Tests", function() {
 
       expect($scope.books).toEqualData(books);
 
+    });
+    
+    it('should show edit button for admin', function() {
+      var mockUserService = { isAdmin : function() { return true; } };
+      
+      $httpBackend.expectGET('api/books').respond(books);
+
+      $controller(BookListCtrl, {
+        $scope : $scope,
+        userService : mockUserService
+      });
+      
+      $httpBackend.flush();
+
+      expect($scope.canEdit).toBe(true);
+      
     });
 
     it('should search for books using query', function() {
@@ -100,21 +121,6 @@ describe("Controller Tests", function() {
       expect($scope.showClear).toBe(false);
 
     });
-
-    it('should select a book by id', inject(function($location) {
-
-      $controller(BookListCtrl, {
-        $scope : $scope
-      });
-      $httpBackend.flush();
-
-      spyOn($location, 'path');
-
-      $scope.select(1);
-
-      expect($location.path).toHaveBeenCalledWith('/books/1');
-
-    }));
 
     it('should clear search when icon clear clicked', function() {
 
@@ -172,8 +178,10 @@ describe("Controller Tests", function() {
 
     it('should login via auth service', inject(function($location) {
 
-      var mockUserService = {};
+      var mockUserService = { login : function(user) {} };
 
+      spyOn(mockUserService, 'login');
+      
       $controller(LoginCtrl, {
         $scope : $scope,
         userService : mockUserService
@@ -198,7 +206,7 @@ describe("Controller Tests", function() {
 
       $httpBackend.flush();
 
-      expect(mockUserService.currentUser.name).toBe('Me');
+      expect(mockUserService.login).toHaveBeenCalledWith( { name : 'Me' } );
       expect($location.path).toHaveBeenCalledWith('/books');
 
     }));
@@ -285,7 +293,7 @@ describe("Controller Tests", function() {
 
     it('should load a book by id', inject(function($location) {
 
-      $httpBackend.expectGET('api/books/1').respond({});
+      $httpBackend.expectGET('api/books/1').respond( { artwork : '123' } );
 
       $controller(BookDetailCtrl, {
         $scope : $scope,
@@ -298,7 +306,8 @@ describe("Controller Tests", function() {
 
       expect($scope.save).toBeDefined();
       expect($scope.remove).toBeDefined();
-      expect($scope.cancel).toBeDefined();
+      expect($scope.artworkUrl).toBeDefined();
+      expect($scope.artworkUrl()).toBe('api/artwork/123');
 
     }));
 
@@ -310,12 +319,27 @@ describe("Controller Tests", function() {
 
       expect($scope.save).toBeDefined();
       expect($scope.remove).toBeDefined();
-      expect($scope.cancel).toBeDefined();
-
-      $httpBackend.verifyNoOutstandingRequest();
+      expect($scope.artworkUrl()).toBe('');
 
     }));
 
+    it('should load a book without artwork', inject(function($location) {
+      
+      $httpBackend.expectGET('api/books/1').respond({});
+
+      $controller(BookDetailCtrl, {
+        $scope : $scope,
+        $routeParams : {
+          bookId : 1
+        }
+      });
+
+      $httpBackend.flush();
+
+      expect($scope.artworkUrl()).toBe('');
+      
+    }));
+    
     it('should save a book', inject(function($location) {
 
       spyOn($location, 'path');
@@ -361,19 +385,6 @@ describe("Controller Tests", function() {
 
       expect($location.path).toHaveBeenCalledWith('/books');
 
-    }));
-
-    it('should cancel', inject(function($location) {
-      spyOn($location, 'path');
-      $controller(BookDetailCtrl, {
-        $scope : $scope,
-        $routeParams : {
-          bookId : 1
-        }
-      });
-      $httpBackend.flush();
-      $scope.cancel(1);
-      expect($location.path).toHaveBeenCalledWith('/books');
     }));
 
   });

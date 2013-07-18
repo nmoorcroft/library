@@ -28,5 +28,9 @@ and start the server with
     java -jar target\library-0.0.1-SNAPSHOT.jar server library.yml
 
 
+## Line endings
+
+Karma's html2js will fail if any partials have windows line ending, convert line endings to unix.
+
 
 
