@@ -3,6 +3,7 @@ package com.zuhlke.library.domain;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,15 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Objects;
 
-@Entity @Table(name = "library_user")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Entity @Table(name = "library_user") @Cacheable
 public class User implements Serializable {
 
     private static final long serialVersionUID = 594893770324699816L;

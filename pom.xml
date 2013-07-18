@@ -77,13 +77,13 @@
       <version>${spring-data.version}</version>
     </dependency>
 
-    <!-- JSR-330 -->
+    <!-- @Inject -->
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>1</version>
     </dependency>
-    
+
     <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -100,7 +100,7 @@
       <artifactId>hibernate-ehcache</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
-    
+
     <!-- Apache Commons -->
     <dependency>
       <groupId>commons-io</groupId>
@@ -108,7 +108,7 @@
       <version>2.4</version>
     </dependency>
 
-    <!-- Jersey -->
+    <!-- Jersey Extras -->
     <dependency>
       <groupId>com.sun.jersey.contribs</groupId>
       <artifactId>jersey-multipart</artifactId>
@@ -128,7 +128,13 @@
       <version>1.9.5</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+            
     <!-- JDBC Driver -->
     <dependency>
       <groupId>com.h2database</groupId>
@@ -141,30 +147,37 @@
   <build>
     <pluginManagement>
       <plugins>
+        <!-- Java 1.7 -->
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.7</source>
             <target>1.7</target>
-            <showDeprecation>true</showDeprecation>
-            <showWarnings>true</showWarnings>
-            <fork>true</fork>
-            <compilerArgument>-proc:none</compilerArgument>
-          </configuration>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <configuration>
-            <archive>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              </manifest>
-            </archive>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
+
     <plugins>
+      <!-- Karma JavaScript Unit Tests -->
+      <plugin>
+        <groupId>com.kelveden</groupId>
+        <artifactId>maven-karma-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <browsers>PhantomJS</browsers>
+          <configFile>src/test/javascript/karma.conf.js</configFile>
+        </configuration>
+      </plugin>
+
+      <!-- Create DropWizard Uberjar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -199,26 +212,9 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.kelveden</groupId>
-        <artifactId>maven-karma-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>start</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <browsers>PhantomJS</browsers>
-          <configFile>src/test/javascript/karma.conf.js</configFile>
-        </configuration>
-
-      </plugin>
-
-    </plugins>
-    
+  
+    </plugins>  
+  
   </build>
 
 </project>
