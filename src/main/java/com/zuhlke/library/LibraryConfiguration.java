@@ -7,6 +7,8 @@ import com.yammer.dropwizard.db.DatabaseConfiguration;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class LibraryConfiguration extends Configuration {
 
 	@Valid
@@ -14,8 +16,16 @@ public class LibraryConfiguration extends Configuration {
 	@JsonProperty
 	private DatabaseConfiguration database = new DatabaseConfiguration();
 
+	@NotEmpty
+	@JsonProperty
+	private String artworkDirectory;
+	
 	public DatabaseConfiguration getDatabaseConfiguration() {
 		return database;
 	}
 
+	public String getArtworkDirectory() {
+        return artworkDirectory;
+    }
+	
 }

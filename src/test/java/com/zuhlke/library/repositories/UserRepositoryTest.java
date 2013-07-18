@@ -19,17 +19,11 @@ import com.zuhlke.library.domain.User;
 @ContextConfiguration("classpath:/data-context.xml")
 public class UserRepositoryTest {
 
-    @Inject
-    private UserRepository userRepository;
-    
-    @Inject 
-    private TransactionTemplate transactionTemplate;
+    @Inject UserRepository userRepository;
+    @Inject TransactionTemplate transactionTemplate;
     
     @Test
     public void shouldUserFindByEmail() throws Exception {
-        // arrange
-        
-        // act
         User user = transactionTemplate.execute(new TransactionCallback<User>() {
             @Override
             public User doInTransaction(TransactionStatus status) {
@@ -37,7 +31,6 @@ public class UserRepositoryTest {
             }
         });
         
-        // assert
         assertNotNull(user);
         assertEquals("Neil M", user.getName());
         

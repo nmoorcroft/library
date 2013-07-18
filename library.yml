@@ -13,6 +13,8 @@ logging:
     "org.hibernate": WARN
     "org.hibernate.SQL": DEBUG
 
+artworkDirectory: "tmp/content"
+
 database:
   driverClass: org.h2.Driver
   user: sa

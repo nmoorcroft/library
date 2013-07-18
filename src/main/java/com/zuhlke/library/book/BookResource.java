@@ -24,6 +24,7 @@ import com.yammer.dropwizard.auth.Auth;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.domain.Book;
 import com.zuhlke.library.domain.User;
+import com.zuhlke.library.domain.UserRole;
 import com.zuhlke.library.domain.Views;
 
 @Component
@@ -55,11 +56,17 @@ public class BookResource {
     @POST 
     @Consumes(MediaType.APPLICATION_JSON)
     public void saveBook(@Auth User user, Book book) {
+        if (!user.getRole().equals(UserRole.ADMINISTRATOR)) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
         bookService.saveBook(book);
     }
 
     @DELETE @Path("/{id}") 
     public void deleteBook(@Auth User user, @PathParam("id") Long id) {
+        if (!user.getRole().equals(UserRole.ADMINISTRATOR)) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
         bookService.deleteBook(id);
     }
 

@@ -21,17 +21,11 @@ import com.zuhlke.library.domain.Book;
 @ContextConfiguration("classpath:/data-context.xml")
 public class BookRepositoryTest {
 
-    @Inject
-    private BookRepository bookRepository;
-    
-    @Inject 
-    private TransactionTemplate transactionTemplate;
+    @Inject BookRepository bookRepository;
+    @Inject TransactionTemplate transactionTemplate;
     
     @Test
     public void shouldBookFindById() throws Exception {
-        // arrange
-        
-        // act
         Book book = transactionTemplate.execute(new TransactionCallback<Book>() {
             @Override
             public Book doInTransaction(TransactionStatus status) {
@@ -39,7 +33,6 @@ public class BookRepositoryTest {
             }
         });
         
-        // assert
         assertNotNull(book);
         assertEquals(new Long(1), book.getId());
         
@@ -47,17 +40,13 @@ public class BookRepositoryTest {
     
     @Test
     public void shouldFindBookByTitle() throws Exception {
-        // arrange
-        
-        // act
         List<Book> books = transactionTemplate.execute(new TransactionCallback<List<Book>>() {
             @Override
             public List<Book> doInTransaction(TransactionStatus status) {
                 return bookRepository.findByTitleOrAuthor("java");
             }
         });
-            
-        // assert
+
         assertEquals(1, books.size());
         assertEquals(new Long(3), books.get(0).getId());
         
@@ -65,17 +54,13 @@ public class BookRepositoryTest {
     
     @Test
     public void shouldFindBookByAuthor() throws Exception {
-        // arrange
-        
-        // act
         List<Book> books = transactionTemplate.execute(new TransactionCallback<List<Book>>() {
             @Override
             public List<Book> doInTransaction(TransactionStatus status) {
-                return bookRepository.findByTitleOrAuthor("Gavin");
+                return bookRepository.findByTitleOrAuthor("king");
             }
         });
         
-        // assert
         assertEquals(1, books.size());
         assertEquals(new Long(3), books.get(0).getId());
         
