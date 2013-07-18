@@ -19,6 +19,10 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
     controller : BookDetailCtrl,
     templateUrl : 'partials/book-detail.html'
 
+  }).when('/signup', {
+    controller : SignUpCtrl,
+    templateUrl : 'partials/signup.html'
+      
   }).otherwise({
     redirectTo : '/books'
   });

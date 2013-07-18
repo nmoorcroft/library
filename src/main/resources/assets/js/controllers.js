@@ -1,5 +1,17 @@
 'use strict';
 
+function SignUpCtrl($scope) {
+  $scope.signup = function(user) {
+    console.log('signup '+user);
+    if (user.password != user.confirm) {
+      $scope.error = 'Passwords must match';
+    } else {
+      $scope.error = null;
+    }
+  }
+  $('#input-fullname').focus();
+}
+
 function LoginCtrl($scope, $http, $location, userService, loginService) {
   $scope.user = {};
   $scope.login = function(user) {

@@ -21,5 +21,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
     
+    @Override
+    @Transactional
+    public void createUser(User user) {
+        userRepository.save(user);
+    }
+    
 }
 
