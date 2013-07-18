@@ -17,7 +17,7 @@ public class AuthenticateResource {
 
     @GET
     public UserAdapter authenticate(@Auth User user) {
-        return new UserAdapter(user.getEmail(), user.getName());
+        return new UserAdapter(user);
     }
     
 }

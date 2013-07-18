@@ -3,7 +3,7 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
   $scope.login = function(user) {
     loginService.setHeaders(user.username, user.password);
     $http.get('api/authenticate').success(function(data) {
-      userService.currentUser = data;
+      userService.login(data);
       $location.path('/books');
 
     }).error(function(data) {
@@ -21,7 +21,7 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
 
 }
 
-function BookListCtrl($scope, $location, bookService) {
+function BookListCtrl($scope, $location, bookService, userService) {
   $scope.books = bookService.query();
   $scope.query = '';
 
@@ -44,10 +44,8 @@ function BookListCtrl($scope, $location, bookService) {
     $scope.search($scope.query);
   };
 
-  $scope.select = function(id) {
-    $location.path('/books/' + id);
-  };
-
+  $scope.canEdit = userService.isAdmin();
+  
 }
 
 function BookDetailCtrl($scope, $routeParams, $location, bookService) {

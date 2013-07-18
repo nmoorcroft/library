@@ -73,5 +73,17 @@
   
   </changeSet>
 
+  <changeSet id="5" author="nmo">
+    <insert tableName="library_user">
+      <column name="user_id" value="2" />
+      <column name="email" value="ford@zuhlke.com" />
+      <column name="password" value="password" />
+      <column name="role" value="USER" />
+      <column name="fullname" value="Ford Prefect" />
+    </insert>  
+
+  
+  </changeSet>
+
 </databaseChangeLog>
 

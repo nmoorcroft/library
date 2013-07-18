@@ -6,6 +6,7 @@
   </span>
   <span class="menu" data-ng-show="fullName">
     <a class="login" href="javascript:;">{{fullName}}</a>
+    <a class="createBook" href="#/books/new" data-ng-show="isAdmin">Create Book</a>
     <a class="logout" href="javascript:;" data-ng-click="logout()">Logout</a>
   </span>
 </div>

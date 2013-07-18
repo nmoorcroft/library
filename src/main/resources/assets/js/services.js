@@ -4,10 +4,14 @@ angular.module('library.services', [ 'ngResource' ])
   return $resource('api/books/:bookId', {}, {});
 })
 
-.service('userService', function() {
-  this.currentUser = null;
-  this.isLoggedIn = function() {
-    return this.currentUser !== null;
+.factory('userService', function() {
+  var currentUser = null;
+  return {
+    login : function(user) { currentUser = user; },
+    isLoggedIn : function() { return currentUser !== null; },
+    isAdmin : function() { return this.isLoggedIn() && currentUser.role == 'ADMINISTRATOR'; },
+    getFullName : function() { return currentUser.name; },
+    logout : function() { currentUser = null; }
   };
 })
 

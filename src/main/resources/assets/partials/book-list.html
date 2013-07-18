@@ -19,6 +19,9 @@
     <div data-ng-repeat="book in books" class="book-item">
       <div class="book-title-wrapper">
         <h4 class="title">{{book.title}}</h4>
+        <a class="btn btn-mini" type="button" data-ng-show="canEdit" href="#/books/{{book.id}}">
+          <i class="icon-pencil"></i>
+        </a>
         <h5 class="author">{{book.author}}</h5>
       </div>
       <div class="book-description-wrapper">

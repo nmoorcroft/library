@@ -4,6 +4,7 @@ body { padding-top: 20px; }
 .header h1 { font-size: 40px; display: inline-block; }
 .header .menu { float: right; }
 .header a.login { border-right: 1px solid; }
+.header a.createBook { border-right: 1px solid; }
 .header a { padding: 0 5px 0 5px; }
 
 /* books.html */
@@ -11,6 +12,9 @@ body { padding-top: 20px; }
 #book-listing p { max-height: 130px; }
 div.book-description-wrapper { overflow: hidden; }
 #search-form { float: right; }
+.book-title-wrapper h4 { display: inline-block; }
+.book-title-wrapper a { margin: 0 0 5px 0; }
+.book-title-wrapper h5 { margin-top: 2px; }
 
 /* book-detail.html */
 #book-detail-form input#input-title { width: 375px; }
@@ -31,6 +35,8 @@ div.book-description-wrapper { overflow: hidden; }
   .header .menu { float: none; }
   .header a { display: block; padding: 0; }
   .header a.login { border: 0px; }
+  .header a.createBook { border: 0px; }
   #search-form { float: none; padding-top: 10px; }
+  .book-title-wrapper a { float: right; }
 }
 
