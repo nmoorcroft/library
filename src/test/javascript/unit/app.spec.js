@@ -1,6 +1,6 @@
 'use strict';
 
-describe("Library App Tests", function() {
+describe('app', function() {
   
   beforeEach(module('libraryApp'));
   

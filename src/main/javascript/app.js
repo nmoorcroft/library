@@ -1,26 +1,26 @@
 'use strict';
 
-angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.directives' ])
+angular.module('libraryApp', [ 'library.services', 'library.controllers', 'library.filters', 'library.directives' ])
 
 .config(function($routeProvider) {
   $routeProvider.when('/login', {
-    controller : LoginCtrl,
+    controller : 'loginCtrl',
     templateUrl : 'partials/login.html'
 
   }).when('/books', {
-    controller : BookListCtrl,
+    controller : 'bookListCtrl',
     templateUrl : 'partials/book-list.html'
 
   }).when('/books/new', {
-    controller : BookDetailCtrl,
+    controller : 'bookDetailCtrl',
     templateUrl : 'partials/book-detail.html'
 
   }).when('/books/:bookId', {
-    controller : BookDetailCtrl,
+    controller : 'bookDetailCtrl',
     templateUrl : 'partials/book-detail.html'
 
   }).when('/signup', {
-    controller : SignUpCtrl,
+    controller : 'signUpCtrl',
     templateUrl : 'partials/signup.html'
       
   }).otherwise({

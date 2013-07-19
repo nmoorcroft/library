@@ -1,6 +1,6 @@
 'use strict';
 
-describe("Library Directives Tests", function() {
+describe('directives', function() {
 
   var element, scope;
   

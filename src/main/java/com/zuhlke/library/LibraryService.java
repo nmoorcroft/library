@@ -50,6 +50,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
         environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
         environment.addProvider(new CustomAuthProvider<User>(context.getBean(LibraryAuthenticator.class)));
         environment.addFilter(WroFilter.class, "/wjo/*").setName("WebResourceOptimizer");
+        
     }
     
     
