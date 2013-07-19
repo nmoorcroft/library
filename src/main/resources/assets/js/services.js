@@ -10,21 +10,32 @@ angular.module('library.services', [ 'ngResource' ])
   return $resource('api/users/:userId', {}, {});
 })
 
-.factory('loginService', function($http) {
+.factory('authService', function($http) {
   var currentUser = null;
   return {
-    setHeaders : function(username, password) {
-      $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
+    login: function(user, password) { 
+      currentUser = user; 
+      $http.defaults.headers.common['Authorization'] 
+        = this.createAuthHeader(currentUser.email, password);
     },
-    clearHeaders : function() {
-      delete $http.defaults.headers.common.Authorization;
+    isLoggedIn: function() { 
+      return currentUser !== null; 
     },
-    login : function(user) { currentUser = user; },
-    isLoggedIn : function() { return currentUser !== null; },
-    isAdmin : function() { return this.isLoggedIn() && currentUser.role == 'ADMINISTRATOR'; },
-    getFullName : function() { return currentUser.name; },
-    logout : function() { currentUser = null; }
+    isAdmin: function() { 
+      return this.isLoggedIn() && currentUser.role == 'ADMINISTRATOR'; 
+    },
+    getFullName: function() { 
+      return this.isLoggedIn() ? currentUser.name : null; 
+    },
+    logout: function() { 
+      currentUser = null; 
+      delete $http.defaults.headers.common['Authorization'];
+    },
+    createAuthHeader: function(username, password) {
+      return 'Basic ' + Base64.encode(username + ':' + password);
+    }
   
   };
 
 });
+

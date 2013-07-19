@@ -2,14 +2,14 @@
 
 angular.module('library.directives', [])
 
-.directive('navbar', function(loginService) {
+.directive('navbar', function(authService) {
   return {
     replace : true,
     templateUrl : 'partials/navbar.html',
     link : function(scope, element, attrs) {
-      if (loginService.isLoggedIn()) {
-        scope.fullName = loginService.getFullName();
-        scope.isAdmin = loginService.isAdmin();
+      if (authService.isLoggedIn()) {
+        scope.fullName = authService.getFullName();
+        scope.isAdmin = authService.isAdmin();
       }
     }
   };

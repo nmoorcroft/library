@@ -13,9 +13,9 @@ describe("Library Directives Tests", function() {
     scope = $rootScope;
   }));
   
-  it('should create navbar not logged in', inject(function($compile, loginService) {
+  it('should create navbar not logged in', inject(function($compile, authService) {
     
-    spyOn(loginService, 'isLoggedIn').andReturn(false);
+    spyOn(authService, 'isLoggedIn').andReturn(false);
     
     $compile(element)(scope);
     scope.$digest();
@@ -25,11 +25,11 @@ describe("Library Directives Tests", function() {
     
   }));
   
-  it('should create navbar logged in', inject(function($compile, loginService) {
+  it('should create navbar logged in', inject(function($compile, authService) {
     
-    spyOn(loginService, 'isLoggedIn').andReturn(true);
-    spyOn(loginService, 'getFullName').andReturn('Zaphod');
-    spyOn(loginService, 'isAdmin').andReturn(false);
+    spyOn(authService, 'isLoggedIn').andReturn(true);
+    spyOn(authService, 'getFullName').andReturn('Zaphod');
+    spyOn(authService, 'isAdmin').andReturn(false);
     
     $compile(element)(scope);
     scope.$digest();
@@ -41,11 +41,11 @@ describe("Library Directives Tests", function() {
     
   }));
   
-  it('should create navbar logged in as admin', inject(function($compile, loginService) {
+  it('should create navbar logged in as admin', inject(function($compile, authService) {
     
-    spyOn(loginService, 'isLoggedIn').andReturn(true);
-    spyOn(loginService, 'getFullName').andReturn('Zaphod');
-    spyOn(loginService, 'isAdmin').andReturn(true);
+    spyOn(authService, 'isLoggedIn').andReturn(true);
+    spyOn(authService, 'getFullName').andReturn('Zaphod');
+    spyOn(authService, 'isAdmin').andReturn(true);
     
     $compile(element)(scope);
     scope.$digest();

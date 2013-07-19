@@ -12,26 +12,31 @@ function SignUpCtrl($scope) {
   $('#input-fullname').focus();
 }
 
-function LoginCtrl($scope, $http, $location, loginService) {
-  $scope.user = {};
+function LoginCtrl($scope, $http, $location, authService) {
   $scope.login = function(user) {
-    loginService.setHeaders(user.username, user.password);
-    $http.get('api/authenticate').success(function(data) {
-      loginService.login(data);
+    $http.get('api/authenticate', {
+      headers: { 
+        'Authorization' : authService.createAuthHeader(user.username, user.password) 
+      }
+
+    }).success(function(data) {
+      authService.login(data, user.password);
       $location.path('/books');
 
     }).error(function(data) {
       $scope.error = 'Invalid username or password.';
       user.password = undefined;
-      $('#input-username').focus();
+      $('#input-password').focus();
+      
     });
+    
   };
 
   $('#input-username').focus();
 
 }
 
-function BookListCtrl($scope, $location, bookService, loginService) {
+function BookListCtrl($scope, $location, bookService, authService) {
   $scope.books = bookService.query();
   $scope.query = '';
 
@@ -54,7 +59,7 @@ function BookListCtrl($scope, $location, bookService, loginService) {
     $scope.search($scope.query);
   };
 
-  $scope.canEdit = loginService.isAdmin();
+  $scope.canEdit = authService.isAdmin();
   
 }
 

@@ -50,10 +50,9 @@ angular.module('libraryApp', [ 'library.services', 'library.filters', 'library.d
 
 })
 
-.run(function($rootScope, loginService, $location) {
+.run(function($rootScope, $location, authService) {
   $rootScope.logout = function() {
-    loginService.clearHeaders();
-    loginService.logout();
+    authService.logout();
     $location.path('#/books');
   };
   

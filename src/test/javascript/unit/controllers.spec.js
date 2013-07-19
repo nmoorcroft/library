@@ -70,13 +70,13 @@ describe("Controller Tests", function() {
     });
     
     it('should show edit button for admin', function() {
-      var mockLoginService = { isAdmin : function() { return true; } };
+      var mockauthService = { isAdmin : function() { return true; } };
       
       $httpBackend.expectGET('api/books').respond(books);
 
       $controller(BookListCtrl, {
         $scope : $scope,
-        loginService : mockLoginService
+        authService : mockauthService
       });
       
       $httpBackend.flush();
@@ -87,11 +87,11 @@ describe("Controller Tests", function() {
 
     it('should search for books using query', function() {
 
-      var mockLoginService = { isAdmin : function() { return false; } };
+      var mockauthService = { isAdmin : function() { return false; } };
 
       $controller(BookListCtrl, {
         $scope : $scope,
-        loginService: mockLoginService
+        authService: mockauthService
       });
 
       $httpBackend.expectGET('api/books?q=query').respond(books);
@@ -179,53 +179,37 @@ describe("Controller Tests", function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should login via auth service', inject(function($location, loginService) {
+    it('should login via auth service', inject(function($location, authService) {
 
-      spyOn(loginService, 'login');
+      spyOn(authService, 'login');
+      spyOn(authService, 'createAuthHeader').andReturn('Basic xyz==');
       
-      $controller(LoginCtrl, {
-        $scope : $scope
-      });
-
-      $scope.user = {};
-      $scope.user.username = "neil";
-      $scope.$apply('user');
+      $controller(LoginCtrl, { $scope : $scope });
 
       $httpBackend.expectGET('api/authenticate', undefined, function(headers) {
-        return headers['Authorization'] == 'ssss';
-      }).respond({
-        name : 'Me'
-      });
+        return headers['Authorization'] === 'Basic xyz=='; // not working!
+        
+      }).respond(200, { name : 'Me' });
 
       spyOn($location, 'path');
 
-      $scope.login({
-        username : 'username',
-        password : 'password'
-      });
+      $scope.login({ username : 'username', password : 'password' });
 
       $httpBackend.flush();
 
-      expect(loginService.login).toHaveBeenCalledWith( { name : 'Me' } );
+      expect(authService.createAuthHeader).toHaveBeenCalledWith('username', 'password');
+      expect(authService.login).toHaveBeenCalledWith( { name : 'Me' }, 'password' );
       expect($location.path).toHaveBeenCalledWith('/books');
 
     }));
 
     it('should display error for invalid username/password', inject(function($location) {
 
-      var mockUserService = {};
+      $controller(LoginCtrl, { $scope : $scope, });
 
-      $controller(LoginCtrl, {
-        $scope : $scope,
-        userService : mockUserService
-      });
+      $httpBackend.expectGET('api/authenticate').respond(401, undefined);
 
-      $httpBackend.expectGET('api/authenticate').respond(401, '');
-
-      $scope.login({
-        username : 'username',
-        password : 'password'
-      });
+      $scope.login({ username : 'username', password : 'password' });
 
       $httpBackend.flush();
 
@@ -287,6 +271,7 @@ describe("Controller Tests", function() {
       uploadParams.done('', {
         result : 'xxx'
       });
+      
       expect($scope.book.artwork).toEqual('xxx');
 
     });
