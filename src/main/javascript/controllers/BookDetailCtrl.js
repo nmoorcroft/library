@@ -5,9 +5,9 @@ angular.module('library.controllers')
 .controller('bookDetailCtrl', function($scope, $routeParams, $location, bookService) {
   var id = $routeParams.bookId;
   if (!_.isUndefined(id)) {
-    $scope.book = bookService.get({
-      bookId : id
-    });
+    $scope.book = bookService.get({ bookId : id });
+  } else {
+    $scope.book = {};
   }
 
   $scope.artworkUrl = function() {
@@ -26,9 +26,7 @@ angular.module('library.controllers')
   };
 
   $scope.remove = function(id) {
-    bookService.remove({
-      bookId : id
-    }, function() {
+    bookService.remove({ bookId : id }, function() {
       $location.path('/books');
     });
   };
