@@ -4,9 +4,9 @@ describe("Library App Tests", function() {
   
   beforeEach(module('libraryApp'));
   
-  it('should logout', inject(function($rootScope, userService, loginService, $location) {
+  it('should logout', inject(function($rootScope, loginService, $location) {
     
-    spyOn(userService, 'logout');
+    spyOn(loginService, 'logout');
     spyOn(loginService, 'clearHeaders');
     spyOn($location, 'path');
     
@@ -14,7 +14,7 @@ describe("Library App Tests", function() {
     
     $rootScope.logout();
     
-    expect(userService.logout).toHaveBeenCalled();
+    expect(loginService.logout).toHaveBeenCalled();
     expect(loginService.clearHeaders).toHaveBeenCalled();
     expect($location.path).toHaveBeenCalledWith('#/books');
     

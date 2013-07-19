@@ -70,13 +70,13 @@ describe("Controller Tests", function() {
     });
     
     it('should show edit button for admin', function() {
-      var mockUserService = { isAdmin : function() { return true; } };
+      var mockLoginService = { isAdmin : function() { return true; } };
       
       $httpBackend.expectGET('api/books').respond(books);
 
       $controller(BookListCtrl, {
         $scope : $scope,
-        userService : mockUserService
+        loginService : mockLoginService
       });
       
       $httpBackend.flush();
@@ -87,8 +87,11 @@ describe("Controller Tests", function() {
 
     it('should search for books using query', function() {
 
+      var mockLoginService = { isAdmin : function() { return false; } };
+
       $controller(BookListCtrl, {
-        $scope : $scope
+        $scope : $scope,
+        loginService: mockLoginService
       });
 
       $httpBackend.expectGET('api/books?q=query').respond(books);
@@ -176,15 +179,12 @@ describe("Controller Tests", function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should login via auth service', inject(function($location) {
+    it('should login via auth service', inject(function($location, loginService) {
 
-      var mockUserService = { login : function(user) {} };
-
-      spyOn(mockUserService, 'login');
+      spyOn(loginService, 'login');
       
       $controller(LoginCtrl, {
-        $scope : $scope,
-        userService : mockUserService
+        $scope : $scope
       });
 
       $scope.user = {};
@@ -206,7 +206,7 @@ describe("Controller Tests", function() {
 
       $httpBackend.flush();
 
-      expect(mockUserService.login).toHaveBeenCalledWith( { name : 'Me' } );
+      expect(loginService.login).toHaveBeenCalledWith( { name : 'Me' } );
       expect($location.path).toHaveBeenCalledWith('/books');
 
     }));

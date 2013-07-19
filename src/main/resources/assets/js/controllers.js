@@ -12,12 +12,12 @@ function SignUpCtrl($scope) {
   $('#input-fullname').focus();
 }
 
-function LoginCtrl($scope, $http, $location, userService, loginService) {
+function LoginCtrl($scope, $http, $location, loginService) {
   $scope.user = {};
   $scope.login = function(user) {
     loginService.setHeaders(user.username, user.password);
     $http.get('api/authenticate').success(function(data) {
-      userService.login(data);
+      loginService.login(data);
       $location.path('/books');
 
     }).error(function(data) {
@@ -31,7 +31,7 @@ function LoginCtrl($scope, $http, $location, userService, loginService) {
 
 }
 
-function BookListCtrl($scope, $location, bookService, userService) {
+function BookListCtrl($scope, $location, bookService, loginService) {
   $scope.books = bookService.query();
   $scope.query = '';
 
@@ -54,7 +54,7 @@ function BookListCtrl($scope, $location, bookService, userService) {
     $scope.search($scope.query);
   };
 
-  $scope.canEdit = userService.isAdmin();
+  $scope.canEdit = loginService.isAdmin();
   
 }
 
