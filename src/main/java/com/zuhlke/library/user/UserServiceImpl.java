@@ -2,11 +2,11 @@ package com.zuhlke.library.user;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.stereotype.Service;
-
 import com.zuhlke.library.domain.User;
+import com.zuhlke.library.domain.UserRole;
 import com.zuhlke.library.repositories.UserRepository;
 
 @Service
@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new DuplicateEmailException();
         }
+        user.setRole(UserRole.USER);
         userRepository.save(user);
     }
     

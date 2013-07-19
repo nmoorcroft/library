@@ -22,6 +22,7 @@ import com.zuhlke.library.heathcheck.DatabaseHealthCheck;
 import com.zuhlke.library.security.CustomAuthProvider;
 import com.zuhlke.library.security.LibraryAuthenticator;
 import com.zuhlke.library.user.AuthenticateResource;
+import com.zuhlke.library.user.UserResource;
 
 public class LibraryService extends Service<LibraryConfiguration> {
 
@@ -45,6 +46,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
         ApplicationContext context = createApplicationContext(configuration);
         environment.addResource(context.getBean(BookResource.class));
+        environment.addResource(context.getBean(UserResource.class));
         environment.addResource(context.getBean(ArtworkResource.class));
         environment.addResource(context.getBean(AuthenticateResource.class));
         environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));

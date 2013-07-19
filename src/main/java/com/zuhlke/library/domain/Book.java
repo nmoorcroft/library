@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -36,22 +36,20 @@ public class Book implements Serializable {
 	
 	@Column(name = "title")
 	@Length(max = 500)
-	@Basic(optional = false)
+    @NotNull
 	private String title;
 	
 	@Column(name = "description")
 	@Length(max = 2000)
-	@Basic(optional = true) 
 	private String description;
 
 	@Column(name = "author")
 	@Length(max = 255)
-	@Basic(optional = false) 
+    @NotNull
 	private String author;
 	
 	@Column(name = "artwork")
     @Length(max = 255)
-	@Basic(optional = true) 
 	private String artwork;
 	
 	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

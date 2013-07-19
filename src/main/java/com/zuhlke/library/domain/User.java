@@ -2,7 +2,6 @@ package com.zuhlke.library.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -32,23 +32,23 @@ public class User implements Serializable {
     
     @Column(name = "email")
     @Length(max = 100)
-    @Basic(optional = false)
+    @NotNull
     private String email;
     
     @Column(name = "password")
     @Length(max = 100)
-    @Basic(optional = false)
+    @NotNull
     @JsonView(Views.Internal.class)
     private String password;
     
     @Column(name = "fullname")
     @Length(max = 250)
-    @Basic(optional = false)
+    @NotNull
     private String name;
     
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    @Basic(optional = false)
+    @NotNull
     private UserRole role;
     
     User() { }

@@ -1,7 +1,10 @@
-<groups xmlns="http://www.isdc.ro/wro">
+<groups xmlns="http://www.isdc.ro/wro"> 
+  
   <group name="app">
     <js>classpath:js/*.js</js>
     <js>classpath:js/controllers/*.js</js>
     <js>classpath:js/services/*.js</js>
   </group>
+
 </groups>
+

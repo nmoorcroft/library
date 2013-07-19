@@ -3,7 +3,6 @@ package com.zuhlke.library.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -37,21 +37,23 @@ public class Comment implements Serializable {
     private Long id;
     
     @Column(name = "comment")
-    @Basic(optional = false)
+    @NotNull
     @Length(max = 2000)
     private String comment;
     
     @Column(name = "created_date", updatable = false)
-    @Basic(optional = false)
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
     
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
     
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
+    @NotNull
     private Book book;
     
     Comment() { }
