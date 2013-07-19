@@ -12,32 +12,28 @@ files = [
   JASMINE_ADAPTER,
   
   // libraries
-  'js/lib/underscore-min.js',
-  'js/lib/jquery-*.js',
-  'js/lib/jquery.ui.widget.js',
-  'js/lib/jquery.iframe-transport.js',
-  'js/lib/jquery.fileupload.js',
-  'js/lib/angular.min.js',
-  'js/lib/angular-*.js',
-  'js/lib/base64.js',
-  'js/lib/bootstrap.min.js',
-  'js/lib/bootstrap.file-input.js',
+  'js/underscore-min.js',
+  'js/jquery-*.js',
+  'js/jquery.ui.widget.js',
+  'js/jquery.iframe-transport.js',
+  'js/jquery.fileupload.js',
+  'js/angular.min.js',
+  'js/angular-*.js',
+  'js/base64.js',
+  'js/bootstrap.min.js',
+  'js/bootstrap.file-input.js',
 
   // mocks
   '../../../../src/test/javascript/lib/angular-mocks.js',
   
   // application
-  'js/app.js',
-  'js/services.js',
-  'js/controllers.js',
-  'js/directives.js',
-  'js/filters.js',
+  '../../../../src/main/javascript/**/*.js',
   
   // templates
   'partials/*.html',
   
   // tests
-  '../../../../src/test/javascript/unit/**/*.spec.js',
+  '../../../../src/test/javascript/unit/**/*.js',
 
 ];
 

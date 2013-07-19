@@ -47,10 +47,10 @@ public class UserRepositoryTest {
         User user = transactionTemplate.execute(new TransactionCallback<User>() {
             @Override
             public User doInTransaction(TransactionStatus status) {
-                return userRepository.findByEmail("xxx@zuhlke.com");
+                return userRepository.findByEmail("zzz@zuhlke.com");
             }
         });
-        
+
         assertNull(user);
         
     }

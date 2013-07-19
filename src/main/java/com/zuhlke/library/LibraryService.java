@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
+import ro.isdc.wro.http.WroFilter;
+
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -47,6 +49,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
         environment.addResource(context.getBean(AuthenticateResource.class));
         environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
         environment.addProvider(new CustomAuthProvider<User>(context.getBean(LibraryAuthenticator.class)));
+        environment.addFilter(WroFilter.class, "/wjo/*").setName("WebResourceOptimizer");
     }
     
     
