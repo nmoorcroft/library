@@ -24,6 +24,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new DuplicateEmailException();
+        }
         userRepository.save(user);
     }
     

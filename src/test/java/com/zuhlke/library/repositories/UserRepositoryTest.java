@@ -3,6 +3,7 @@ package com.zuhlke.library.repositories;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class UserRepositoryTest {
     @Inject TransactionTemplate transactionTemplate;
     
     @Test
-    public void shouldUserFindByEmail() throws Exception {
+    public void shouldFindUserByEmail() throws Exception {
         User user = transactionTemplate.execute(new TransactionCallback<User>() {
             @Override
             public User doInTransaction(TransactionStatus status) {
@@ -38,6 +39,19 @@ public class UserRepositoryTest {
         
         assertNotNull(user);
         assertEquals("Neil M", user.getName());
+        
+    }
+    
+    @Test
+    public void shouldNotFindUserByEmail() throws Exception {
+        User user = transactionTemplate.execute(new TransactionCallback<User>() {
+            @Override
+            public User doInTransaction(TransactionStatus status) {
+                return userRepository.findByEmail("xxx@zuhlke.com");
+            }
+        });
+        
+        assertNull(user);
         
     }
     
