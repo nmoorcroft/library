@@ -22,7 +22,7 @@ import com.zuhlke.library.repositories.UserRepository;
 public class UserServiceTest {
 
     @Mock UserRepository mockRepository;
-    @InjectMocks UserService userService = new UserServiceImpl();
+    @InjectMocks UserService userService = new UserService();
     
     @Test
     public void shouldFindByEmail() throws Exception {

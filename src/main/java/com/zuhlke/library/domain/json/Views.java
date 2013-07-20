@@ -1,4 +1,4 @@
-package com.zuhlke.library.domain;
+package com.zuhlke.library.domain.json;
 
 public class Views {
 

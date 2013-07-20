@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Objects;
+import com.zuhlke.library.domain.json.Views;
 
 @Entity @Table(name = "library_user") @Cacheable
 public class User implements Serializable {
@@ -31,24 +32,21 @@ public class User implements Serializable {
     private Long id;
     
     @Column(name = "email")
-    @Length(max = 100)
-    @NotNull
+    @Length(max = 100) @NotNull
     private String email;
     
     @Column(name = "password")
-    @Length(max = 100)
-    @NotNull
+    @Length(max = 100) @NotNull
     @JsonView(Views.Internal.class)
     private String password;
     
     @Column(name = "fullname")
-    @Length(max = 250)
-    @NotNull
+    @Length(max = 250) @NotNull
     private String name;
     
     @Column(name = "role")
-    @Enumerated(EnumType.STRING)
     @NotNull
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     
     User() { }

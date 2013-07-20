@@ -19,11 +19,11 @@ import com.zuhlke.library.LibraryConfiguration;
 public class ArtworkServiceTest {
 
     @Mock LibraryConfiguration mockConfiguration;
-    @InjectMocks ArtworkService artworkService = new ArtworkServiceImpl();
+    @InjectMocks ArtworkService artworkService = new ArtworkService();
     
     @Test
     public void shouldSaveAndLoadArtwork() throws Exception {
-        when(mockConfiguration.getArtworkDirectory()).thenReturn("target");
+        when(mockConfiguration.getImgStore()).thenReturn("target");
         byte[] artwork = toByteArray(getClass().getResourceAsStream("/img/domain.jpg"));
         String uuid = artworkService.saveArtwork(artwork);
         byte[] loaded = artworkService.loadArtwork(uuid);

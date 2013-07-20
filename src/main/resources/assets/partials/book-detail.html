@@ -1,39 +1,40 @@
 <div data-navbar></div>
+
 <div class="row well">
-<form id="book-detail-form" name="bookDetailForm" class="form-horizontal">
-  <input type="hidden" data-ng-model="book.id" />
-  <div class="control-group">
-    <label class="control-label" for="input-title">Title</label>
-    <div class="controls">
-      <input type="text" id="input-title" data-ng-model="book.title" required>
+  <form id="book-detail-form" name="bookDetailForm" class="form-horizontal">
+    <input type="hidden" data-ng-model="book.id" />
+    <div class="control-group">
+      <label class="control-label" for="input-title">Title</label>
+      <div class="controls">
+        <input type="text" id="input-title" data-ng-model="book.title" required>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="input-author">Author</label>
-    <div class="controls">
-      <input type="text" id="input-author" data-ng-model="book.author" required>
+    <div class="control-group">
+      <label class="control-label" for="input-author">Author</label>
+      <div class="controls">
+        <input type="text" id="input-author" data-ng-model="book.author" required>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="input-description">Description</label>
-    <div class="controls">
-      <textarea rows="10" id="input-description" data-ng-model="book.description"></textarea>
+    <div class="control-group">
+      <label class="control-label" for="input-description">Description</label>
+      <div class="controls">
+        <textarea rows="10" id="input-description" data-ng-model="book.description"></textarea>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="input-artwork">Artwork</label>
-    <div class="controls">
-      <input type="file" id="input-artwork" data-url="api/artwork/upload">
-      <img data-ng-src="{{ artworkUrl() }}" data-ng-show="book.artwork">
+    <div class="control-group">
+      <label class="control-label" for="input-artwork">Artwork</label>
+      <div class="controls">
+        <input type="file" id="input-artwork" data-url="api/artwork/upload">
+        <img data-ng-src="{{ artworkUrl() }}" data-ng-show="book.artwork">
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <button type="button" class="btn btn-success" data-ng-click="save(book)" data-ng-disabled="bookDetailForm.$invalid">Save</button>
-      <button type="button" class="btn btn-danger" data-ng-click="remove(book.id)" data-ng-show="book.id">Delete</button>
-      <a type="button" class="btn" href="#/books">Cancel</a>
+    <div class="control-group">
+      <div class="controls">
+        <button type="button" class="btn btn-success" data-ng-click="save(book)" data-ng-disabled="bookDetailForm.$invalid">Save</button>
+        <button type="button" class="btn btn-danger" data-ng-click="remove(book.id)" data-ng-show="book.id">Delete</button>
+        <a type="button" class="btn" href="#/books">Cancel</a>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
 

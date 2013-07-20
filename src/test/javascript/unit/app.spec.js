@@ -14,7 +14,7 @@ describe('app', function() {
     $rootScope.logout();
     
     expect(authService.logout).toHaveBeenCalled();
-    expect($location.path).toHaveBeenCalledWith('#/books');
+    expect($location.path).toHaveBeenCalledWith('/books');
     
   }));
   

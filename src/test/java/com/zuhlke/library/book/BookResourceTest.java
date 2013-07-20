@@ -1,5 +1,7 @@
 package com.zuhlke.library.book;
 
+import static com.zuhlke.library.domain.UserRole.ADMINISTRATOR;
+import static com.zuhlke.library.domain.UserRole.USER;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,7 +26,6 @@ import com.zuhlke.library.domain.Book;
 import com.zuhlke.library.domain.BookBuilder;
 import com.zuhlke.library.domain.User;
 import com.zuhlke.library.domain.UserBuilder;
-import com.zuhlke.library.domain.UserRole;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookResourceTest {
@@ -63,14 +64,14 @@ public class BookResourceTest {
     
     @Test
     public void shouldSaveBook() throws Exception {
-        User user = new UserBuilder().role(UserRole.ADMINISTRATOR).build();
+        User user = new UserBuilder().role(ADMINISTRATOR).build();
         resource.saveBook(user, book);
         verify(mockBookService).saveBook(book);
     }
     
     @Test
     public void shouldNotBeAuthorizedToSave() throws Exception {
-        User user = new UserBuilder().role(UserRole.USER).build();
+        User user = new UserBuilder().role(USER).build();
         WebApplicationException exception = null;
         try {
             resource.saveBook(user, book);
@@ -87,14 +88,14 @@ public class BookResourceTest {
     
     @Test
     public void shouldDeleteBook() throws Exception {
-        User user = new UserBuilder().role(UserRole.ADMINISTRATOR).build();
+        User user = new UserBuilder().role(ADMINISTRATOR).build();
         resource.deleteBook(user, 1L);
         verify(mockBookService).deleteBook(1L);
     }
     
     @Test
     public void shouldNotBeAuthorizedToDelete() throws Exception {
-        User user = new UserBuilder().role(UserRole.USER).build();
+        User user = new UserBuilder().role(USER).build();
         WebApplicationException exception = null;
         try {
             resource.deleteBook(user, 1L);

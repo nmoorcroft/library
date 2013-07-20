@@ -13,7 +13,7 @@ logging:
     "org.hibernate": WARN
     "org.hibernate.SQL": DEBUG
 
-artworkDirectory: "tmp/content"
+imgStore: "tmp/content"
 
 database:
   driverClass: org.h2.Driver

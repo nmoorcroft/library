@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Objects;
+import com.zuhlke.library.domain.json.Views;
 
 @Entity @Table(name = "book") @Cacheable
 public class Book implements Serializable {
@@ -35,8 +36,7 @@ public class Book implements Serializable {
 	private Long id;
 	
 	@Column(name = "title")
-	@Length(max = 500)
-    @NotNull
+	@Length(max = 500) @NotNull
 	private String title;
 	
 	@Column(name = "description")
@@ -44,8 +44,7 @@ public class Book implements Serializable {
 	private String description;
 
 	@Column(name = "author")
-	@Length(max = 255)
-    @NotNull
+	@Length(max = 255) @NotNull
 	private String author;
 	
 	@Column(name = "artwork")

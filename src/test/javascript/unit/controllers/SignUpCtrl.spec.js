@@ -36,11 +36,12 @@ describe('SignUpCtrl', function() {
     $httpBackend.flush();
 
     expect($location.path).toHaveBeenCalledWith('/books');
-//    expect(authService.login).toHaveBeenCalledWith(user, 'password');
+    //expect(authService.login).toHaveBeenCalledWith(user, 'password');
+    
 
   }));
 
-  it('should error for duplicate email', inject(function($location, authService) {
+  it('should error for duplicate email', function() {
     
     $controller('signUpCtrl', {
       $scope : $scope
@@ -54,6 +55,19 @@ describe('SignUpCtrl', function() {
     
     expect($scope.error).toBe('This email address has already been registered, please use another.');
     
-  }));
+  });
+  
+  it('should fail when passwords do not match', function() {
+
+    $controller('signUpCtrl', {
+      $scope : $scope
+    });
+    
+    $scope.signup({ email : 'email', password : 'p1', confirm : 'p2' });
+    
+    expect($scope.error).toBe('Passwords must match');
+    
+    
+  });
   
 });

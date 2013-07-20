@@ -53,7 +53,7 @@ angular.module('libraryApp', [ 'library.services', 'library.controllers', 'libra
 .run(function($rootScope, $location, authService) {
   $rootScope.logout = function() {
     authService.logout();
-    $location.path('#/books');
+    $location.path('/books');
   };
   
 });

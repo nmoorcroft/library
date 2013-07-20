@@ -17,7 +17,7 @@ import com.zuhlke.library.repositories.BookRepository;
 public class BookServiceTest {
 
     @Mock BookRepository mockRepository;
-    @InjectMocks BookService bookService = new BookServiceImpl();
+    @InjectMocks BookService bookService = new BookService();
     
     @Test
     public void shouldGetBookById() throws Exception {

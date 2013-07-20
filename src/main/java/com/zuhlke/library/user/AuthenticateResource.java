@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.yammer.dropwizard.auth.Auth;
 import com.zuhlke.library.domain.User;
-import com.zuhlke.library.domain.Views;
+import com.zuhlke.library.domain.json.Views;
 
 @Component
 @Path("/authenticate")

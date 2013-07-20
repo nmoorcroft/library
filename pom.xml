@@ -154,18 +154,22 @@
   <build>
     <resources>
       <resource>
+        <filtering>true</filtering>
         <directory>src/main/resources</directory>
       </resource>
       <resource>
+        <filtering>false</filtering>
         <directory>src/main/javascript</directory>
         <targetPath>js</targetPath>
       </resource>
     </resources>
     <testResources>
       <testResource>
+        <filtering>true</filtering>
         <directory>src/test/resources</directory>
       </testResource>
       <testResource>
+        <filtering>false</filtering>
         <directory>src/test/javascript</directory>
       </testResource>
     </testResources>

@@ -25,7 +25,7 @@ import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.zuhlke.library.domain.Book;
 import com.zuhlke.library.domain.User;
 import com.zuhlke.library.domain.UserRole;
-import com.zuhlke.library.domain.Views;
+import com.zuhlke.library.domain.json.Views;
 
 @Component
 @Path("/books")

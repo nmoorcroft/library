@@ -18,14 +18,14 @@ public class LibraryConfiguration extends Configuration {
 
 	@NotEmpty
 	@JsonProperty
-	private String artworkDirectory;
+	private String imgStore;
 	
 	public DatabaseConfiguration getDatabaseConfiguration() {
 		return database;
 	}
 
-	public String getArtworkDirectory() {
-        return artworkDirectory;
+	public String getImgStore() {
+        return imgStore;
     }
 	
 }

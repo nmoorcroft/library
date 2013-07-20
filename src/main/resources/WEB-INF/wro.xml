@@ -5,6 +5,6 @@
     <js>classpath:js/controllers/*.js</js>
     <js>classpath:js/services/*.js</js>
   </group>
-
+  
 </groups>
 

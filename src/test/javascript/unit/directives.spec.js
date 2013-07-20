@@ -20,8 +20,8 @@ describe('directives', function() {
     $compile(element)(scope);
     scope.$digest();
     
-    expect(element.find('span.loggedIn').css('display')).toBe('none');
-    expect(element.find('span.notLoggedIn').css('display')).not.toBe('none');
+    expect(element.find('span.logged-in').css('display')).toBe('none');
+    expect(element.find('span.not-logged-in').css('display')).not.toBe('none');
     
   }));
   
@@ -34,10 +34,10 @@ describe('directives', function() {
     $compile(element)(scope);
     scope.$digest();
     
-    expect(element.find('span.loggedIn').css('display')).not.toBe('none');
-    expect(element.find('span.notLoggedIn').css('display')).toBe('none');
-    expect(element.find('span.loggedIn a.login').html()).toBe('Zaphod');
-    expect(element.find('span.loggedIn .createBook').css('display')).toBe('none');
+    expect(element.find('span.logged-in').css('display')).not.toBe('none');
+    expect(element.find('span.not-logged-in').css('display')).toBe('none');
+    expect(element.find('span.logged-in a.login').html()).toBe('Zaphod');
+    expect(element.find('span.logged-in .createBook').css('display')).toBe('none');
     
   }));
   
@@ -50,7 +50,7 @@ describe('directives', function() {
     $compile(element)(scope);
     scope.$digest();
     
-    expect(element.find('span.loggedIn .createBook').css('display')).not.toBe('none');
+    expect(element.find('span.logged-in .createBook').css('display')).not.toBe('none');
     
   }));
   
