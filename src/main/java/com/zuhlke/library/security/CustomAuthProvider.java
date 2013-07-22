@@ -25,7 +25,7 @@ import com.yammer.dropwizard.auth.Authenticator;
 import com.yammer.dropwizard.auth.basic.BasicCredentials;
 
 /**
- * Custom BasicAuthProvider that does not respond with WWW-Authenticate header.
+ * Custom {@link BasicAuthProvider} that does not respond with WWW-Authenticate header.
  * Prevents the BasicAuth dialog from being displayed by the browser.
  * 
  */
