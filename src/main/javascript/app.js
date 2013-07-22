@@ -48,14 +48,6 @@ angular.module('libraryApp', [ 'library.services', 'library.controllers', 'libra
   }
   $httpProvider.responseInterceptors.push(errorInterceptor);
 
-})
-
-.run(function($rootScope, $location, authService) {
-  $rootScope.logout = function() {
-    authService.logout();
-    $location.path('/books');
-  };
-  
 });
 
 

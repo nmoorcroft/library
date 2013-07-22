@@ -12,9 +12,7 @@
         <constraints nullable="false" />
       </column>
     </createTable>
-  </changeSet>
 
-  <changeSet id="2" author="nmo">
     <createTable tableName="book">
       <column name="book_id" type="bigint">
         <constraints primaryKey="true" nullable="false" />
@@ -32,9 +30,7 @@
         <constraints nullable="true" />
       </column>
     </createTable>
-  </changeSet>
-  
-  <changeSet id="3" author="nmo">
+
     <createTable tableName="library_user">
       <column name="user_id" type="bigint">
         <constraints primaryKey="true" nullable="false" />
@@ -48,13 +44,21 @@
       <column name="role" type="varchar(20)">
         <constraints nullable="false" />
       </column>
+      <column name="fullname" type="varchar(250)">
+        <constraints nullable="false" />
+      </column>
     </createTable>
     
+  </changeSet>
+    
+  <changeSet id="2" author="nmo">
+
     <insert tableName="library_user">
       <column name="user_id" value="1" />
-      <column name="email" value="nmo@zuhlke.com" />
+      <column name="email" value="admin@zuhlke.com" />
       <column name="password" value="password" />
       <column name="role" value="ADMINISTRATOR" />
+      <column name="fullname" value="Administrator" />
     </insert>  
 
     <insert tableName="hibernate_sequences">
@@ -64,27 +68,7 @@
     
   </changeSet>
 
-  <changeSet id="4" author="nmo">
-    <addColumn tableName="library_user">
-      <column name="fullname" type="varchar(250)" defaultValue="Neil Moorcroft">
-        <constraints nullable="false" />
-      </column>
-    </addColumn>
-  
-  </changeSet>
-
-  <changeSet id="5" author="nmo">
-    <insert tableName="library_user">
-      <column name="user_id" value="2" />
-      <column name="email" value="ford@zuhlke.com" />
-      <column name="password" value="password" />
-      <column name="role" value="USER" />
-      <column name="fullname" value="Ford Prefect" />
-    </insert>  
-  
-  </changeSet>
-
-  <changeSet id="6" author="nmo">
+  <changeSet id="3" author="nmo">
     <createTable tableName="comment">
       <column name="comment_id" type="bigint">
         <constraints primaryKey="true" nullable="false" />
