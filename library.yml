@@ -12,8 +12,11 @@ logging:
     "org.springframework": INFO
     "org.hibernate": WARN
     "org.hibernate.SQL": DEBUG
+    "ro.isdc": DEBUG
 
 imgStore: "tmp/content"
+
+wroDebug: true
 
 database:
   driverClass: org.h2.Driver

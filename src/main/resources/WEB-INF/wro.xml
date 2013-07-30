@@ -4,6 +4,7 @@
     <js>classpath:js/*.js</js>
     <js>classpath:js/controllers/*.js</js>
     <js>classpath:js/services/*.js</js>
+    <css>classpath:scss/*.scss</css>
   </group>
   
 </groups>

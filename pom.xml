@@ -7,6 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
+    <debug>true</debug>
     <dropwizard-version>0.6.2</dropwizard-version>
     <jersey.version>1.17.1</jersey.version>
     <spring.version>3.2.3.RELEASE</spring.version>
@@ -148,28 +149,33 @@
       <artifactId>wro4j-core</artifactId>
       <version>1.7.0</version>
     </dependency>
-    
+    <dependency>
+      <groupId>ro.isdc.wro4j</groupId>
+      <artifactId>wro4j-extensions</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
     <resources>
       <resource>
-        <filtering>true</filtering>
         <directory>src/main/resources</directory>
       </resource>
       <resource>
-        <filtering>false</filtering>
         <directory>src/main/javascript</directory>
         <targetPath>js</targetPath>
+      </resource>
+      <resource>
+        <directory>src/main/scss</directory>
+        <targetPath>scss</targetPath>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <filtering>true</filtering>
         <directory>src/test/resources</directory>
       </testResource>
       <testResource>
-        <filtering>false</filtering>
         <directory>src/test/javascript</directory>
       </testResource>
     </testResources>
