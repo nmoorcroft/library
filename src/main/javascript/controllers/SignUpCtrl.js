@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('library.controllers')
 
 .controller('signUpCtrl', function($scope, $location, userService, authService) {

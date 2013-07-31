@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('libraryApp', [ 'library.services', 'library.controllers', 'library.filters', 'library.directives' ])
 
 .config(function($routeProvider) {

@@ -12,7 +12,7 @@ logging:
     "org.springframework": INFO
     "org.hibernate": WARN
     "org.hibernate.SQL": DEBUG
-    "ro.isdc": DEBUG
+    "ro.isdc": WARN
 
 imgStore: "tmp/content"
 

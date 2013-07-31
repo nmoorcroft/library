@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('library.directives', [])
 
 .directive('navbar', function(authService, $location, $route) {

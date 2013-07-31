@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('library.services')
 
 .factory('authService', function($http) {

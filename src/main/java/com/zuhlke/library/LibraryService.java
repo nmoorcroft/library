@@ -40,23 +40,28 @@ public class LibraryService extends Service<LibraryConfiguration> {
                 return configuration.getDatabaseConfiguration();
             }
         });
+        
     }
 
     @Override
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
-        ApplicationContext context = createApplicationContext(configuration);
+        ApplicationContext context = initApplicationContext(configuration);
+        
+        environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
+        
         environment.addResource(context.getBean(BookResource.class));
         environment.addResource(context.getBean(UserResource.class));
         environment.addResource(context.getBean(ArtworkResource.class));
         environment.addResource(context.getBean(AuthenticateResource.class));
-        environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
+        
         environment.addProvider(new CustomAuthProvider<User>(context.getBean(LibraryAuthenticator.class)));
         environment.addFilter(WroFilter.class, "/wro/*").setName("WebResourceOptimizer").setInitParam("debug", configuration.isWroDebug());
+
         
     }
     
     
-    private ApplicationContext createApplicationContext(LibraryConfiguration configuration) throws Exception {
+    private ApplicationContext initApplicationContext(LibraryConfiguration configuration) throws Exception {
         ManagedDataSource dataSource = new ManagedDataSourceFactory().build(configuration.getDatabaseConfiguration()); 
         DefaultListableBeanFactory parentBeanFactory = new DefaultListableBeanFactory();
         parentBeanFactory.registerSingleton("configuration", configuration);
@@ -64,6 +69,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
         GenericApplicationContext parentContext = new GenericApplicationContext(parentBeanFactory);
         parentContext.refresh();
         return new ClassPathXmlApplicationContext(new String[] { "/spring/application-context.xml" }, parentContext);
+        
     }
 
 }

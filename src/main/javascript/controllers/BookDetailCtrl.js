@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('library.controllers')
 
 .controller('bookDetailCtrl', function($scope, $routeParams, $location, bookService) {

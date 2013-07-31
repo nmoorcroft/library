@@ -167,8 +167,8 @@
         <targetPath>js</targetPath>
       </resource>
       <resource>
-        <directory>src/main/scss</directory>
-        <targetPath>scss</targetPath>
+        <directory>src/main/styles</directory>
+        <targetPath>styles</targetPath>
       </resource>
     </resources>
     <testResources>

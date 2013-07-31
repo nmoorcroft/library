@@ -1,0 +1,24 @@
+/* general styles */
+
+body { padding-top: 20px; }
+
+.header { 
+  margin: 0 0 10px 0; 
+  
+  h1 { font-size: 40px; display: inline-block; }
+  .menu { float: right; }
+  a { padding: 0 5px 0 5px; }
+  a.login { border-right: 1px solid; }
+  a.createBook { border-right: 1px solid; }
+
+  @media screen and (max-width: 480px) { 
+    h1 { display: block; }
+    .menu { float: none; }
+    a { display: block; padding: 0; }
+    a.login { border: 0px; }
+    a.createBook { border: 0px; }
+  }
+
+}
+
+
