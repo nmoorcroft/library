@@ -1,5 +1,7 @@
 /* general styles */
 
+@tiny-width: 768px; 
+
 body { padding-top: 20px; }
 
 .header { 
@@ -11,7 +13,7 @@ body { padding-top: 20px; }
   a.login { border-right: 1px solid; }
   a.createBook { border-right: 1px solid; }
 
-  @media screen and (max-width: 480px) { 
+  @media screen and (max-width: @tiny-width) { 
     h1 { display: block; }
     .menu { float: none; }
     a { display: block; padding: 0; }
