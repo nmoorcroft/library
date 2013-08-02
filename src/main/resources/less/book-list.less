@@ -14,12 +14,14 @@
   
 }
 
-#search-form { 
+.search-panel { 
   float: right;
-  
+  width: 260px;
+   
   @media screen and (max-width: @tiny-width) { 
     float: none; 
     padding-top: 10px;
+    padding-left: 15px;
   }
   
 }
@@ -27,13 +29,7 @@
 .book-title-wrapper {
   h4 { display: inline-block; }
   h5 { margin-top: 2px; }
-  
   a { margin: 0 0 5px 0; }
-
-  @media screen and (max-width: @tiny-width) { 
-    a { float: right; }
-  }
-
 }
 
 .book-description-wrapper { 

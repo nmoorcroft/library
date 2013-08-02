@@ -2,7 +2,7 @@
   
   <group name="app">
     <js>/src/main/javascript/*.js</js>
-    <js>/src/main/controllers/*.js</js>
+    <js>/src/main/javascript/controllers/*.js</js>
     <js>/src/main/javascript/services/*.js</js>
     <css>/src/main/resources/less/*.less</css>
   </group>
