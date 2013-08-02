@@ -54,11 +54,7 @@ public class LibraryService extends Service<LibraryConfiguration> {
         environment.addResource(context.getBean(ArtworkResource.class));
         environment.addResource(context.getBean(AuthenticateResource.class));
 
-        // wro4j runtime config no longer used
-        // environment.addFilter(WroFilter.class,
-        // "/wro/*").setName("WebResourceOptimizer").setInitParam("debug",
-        // configuration.isWroDebug());
-
+        
     }
 
     private ApplicationContext initApplicationContext(LibraryConfiguration configuration) throws Exception {

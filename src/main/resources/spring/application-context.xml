@@ -35,5 +35,7 @@
 
   <jpa:repositories base-package="com.zuhlke.library.repositories" />
 
+  <!-- dataSource initialized by LibraryService -->
+
 </beans>
 
