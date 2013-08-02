@@ -20,10 +20,6 @@ public class LibraryConfiguration extends Configuration {
 	@JsonProperty
 	private String imgStore;
 	
-	@NotEmpty
-	@JsonProperty
-	private String wroDebug;
-	
 	public DatabaseConfiguration getDatabaseConfiguration() {
 		return database;
 	}
@@ -31,9 +27,5 @@ public class LibraryConfiguration extends Configuration {
 	public String getImgStore() {
         return imgStore;
     }
-	
-	public String isWroDebug() {
-		return wroDebug;
-	}
 	
 }
