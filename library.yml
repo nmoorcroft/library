@@ -16,8 +16,6 @@ logging:
 
 imgStore: "tmp/content"
 
-wroDebug: true
-
 database:
   driverClass: org.h2.Driver
   user: sa

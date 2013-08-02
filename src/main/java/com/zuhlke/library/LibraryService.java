@@ -5,8 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
-import ro.isdc.wro.http.WroFilter;
-
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -40,37 +38,38 @@ public class LibraryService extends Service<LibraryConfiguration> {
                 return configuration.getDatabaseConfiguration();
             }
         });
-        
+
     }
 
     @Override
     public void run(LibraryConfiguration configuration, Environment environment) throws Exception {
         ApplicationContext context = initApplicationContext(configuration);
-        
+
         environment.addHealthCheck(context.getBean(DatabaseHealthCheck.class));
-        
+
+        environment.addProvider(new CustomAuthProvider<User>(context.getBean(LibraryAuthenticator.class)));
+
         environment.addResource(context.getBean(BookResource.class));
         environment.addResource(context.getBean(UserResource.class));
         environment.addResource(context.getBean(ArtworkResource.class));
         environment.addResource(context.getBean(AuthenticateResource.class));
-        
-        environment.addProvider(new CustomAuthProvider<User>(context.getBean(LibraryAuthenticator.class)));
-        environment.addFilter(WroFilter.class, "/wro/*").setName("WebResourceOptimizer").setInitParam("debug", configuration.isWroDebug());
 
-        
+        // wro4j runtime config no longer used
+        // environment.addFilter(WroFilter.class,
+        // "/wro/*").setName("WebResourceOptimizer").setInitParam("debug",
+        // configuration.isWroDebug());
+
     }
-    
-    
+
     private ApplicationContext initApplicationContext(LibraryConfiguration configuration) throws Exception {
-        ManagedDataSource dataSource = new ManagedDataSourceFactory().build(configuration.getDatabaseConfiguration()); 
+        ManagedDataSource dataSource = new ManagedDataSourceFactory().build(configuration.getDatabaseConfiguration());
         DefaultListableBeanFactory parentBeanFactory = new DefaultListableBeanFactory();
         parentBeanFactory.registerSingleton("configuration", configuration);
         parentBeanFactory.registerSingleton("dataSource", dataSource);
         GenericApplicationContext parentContext = new GenericApplicationContext(parentBeanFactory);
         parentContext.refresh();
         return new ClassPathXmlApplicationContext(new String[] { "/spring/application-context.xml" }, parentContext);
-        
+
     }
 
 }
-

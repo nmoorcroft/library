@@ -1,10 +1,10 @@
 <groups xmlns="http://www.isdc.ro/wro"> 
   
   <group name="app">
-    <js>classpath:js/*.js</js>
-    <js>classpath:js/controllers/*.js</js>
-    <js>classpath:js/services/*.js</js>
-    <css>classpath:styles/*.less</css>
+    <js>/src/main/javascript/*.js</js>
+    <js>/src/main/controllers/*.js</js>
+    <js>/src/main/javascript/services/*.js</js>
+    <css>/src/main/resources/less/*.less</css>
   </group>
   
 </groups>
