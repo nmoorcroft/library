@@ -6,7 +6,7 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
-    <minimize>true</minimize>
+    <wro.minimize>true</wro.minimize>
     <dropwizard-version>0.6.2</dropwizard-version>
     <jersey.version>1.17.1</jersey.version>
     <spring.version>3.2.3.RELEASE</spring.version>
@@ -257,14 +257,14 @@
           </execution>
         </executions>
         <configuration>
-          <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-          <minimize>${minimize}</minimize>
-          <ignoreMissingResources>false</ignoreMissingResources>
+          <minimize>${wro.minimize}</minimize>
           <wroFile>${basedir}/wro.xml</wroFile>
+          <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
           <extraConfigFile>${basedir}/wro.properties</extraConfigFile>
           <contextFolder>${basedir}</contextFolder>
           <jsDestinationFolder>${project.build.outputDirectory}/assets/js</jsDestinationFolder>
           <cssDestinationFolder>${project.build.outputDirectory}/assets/css</cssDestinationFolder>
+          <ignoreMissingResources>false</ignoreMissingResources>
         </configuration>
       </plugin>
 
