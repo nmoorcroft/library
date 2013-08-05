@@ -1,5 +1,3 @@
-'use strict';
-
 describe('directives', function() {
 
   var element, scope;

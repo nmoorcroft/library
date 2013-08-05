@@ -1,5 +1,3 @@
-'use strict';
-
 describe('BookDetailCtrl', function() {
   var $scope = null;
   var $httpBackend = null;

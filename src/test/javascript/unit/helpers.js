@@ -1,5 +1,3 @@
-'use strict';
-
 beforeEach(function() {
   this.addMatchers({
     // we need to use toEqualData because the Resource has extra

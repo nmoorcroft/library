@@ -1,5 +1,3 @@
-'use strict';
-
 describe('BookListCtrl', function() {
 
   var books = [ {

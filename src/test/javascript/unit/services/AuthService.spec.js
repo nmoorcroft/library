@@ -1,5 +1,3 @@
-'use strict';
-
 describe('authService', function() {
 
   beforeEach(module('library.services'));
