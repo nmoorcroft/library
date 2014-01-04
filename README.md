@@ -9,7 +9,7 @@ Build the jar with Maven
 The JavaScript tests require Karma and PhantomJS to be installed
 
     npm install -g karma
-    npn install -g phantomjs
+    npm install -g phantomjs
 
 The tests require that PHANTOMJS_BIN points to the PhantomJS executable
 
